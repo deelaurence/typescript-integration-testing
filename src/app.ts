@@ -1,22 +1,56 @@
+
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import authRoutes from './routes/auth';
 import { Secret } from 'jsonwebtoken';
 import  dotenv from 'dotenv'
+import passport from 'passport';
+import googleRoutes from './routes/googleAuth'
+import morgan from 'morgan'
+import swaggerUI from 'swagger-ui-express'
+import { NotFound } from './errors/customErrors';
+import session from 'express-session'
 dotenv.config()
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
-app.use('/auth', authRoutes);
 
+
+//express session is needed for passport to work
+app.use(
+  session({
+    secret: "replace-with-secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+
+app.use(morgan("dev"))
+// Initialize passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//PASSPORT AND EXPRESS SESSION MIDDLEWARES MUST BE
+//INITIALIZED BEFORE CALLING PASSPORT ROUTES
+//THE ORDER MATTERS TOO EXPRESS SESSION, THEN PASSPORT
+
+app.use(bodyParser.json());
+app.use("/", googleRoutes);
+app.use('/auth', authRoutes);
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(require('./docs')));
+
+app.use("*",(req,res)=>{
+  console.log("Route not found")
+  res.status(404).json(new NotFound("Requested resource not found"))
+})
 mongoose.connect(process.env.MONGODB_URI||"mongodb://localhost:27017/user-auth");
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}..`);
 });
 
 export default app;

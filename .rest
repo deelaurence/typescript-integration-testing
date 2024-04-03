@@ -1,0 +1,44 @@
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    
+    "email":"deverenceconnect@gmail.com",
+    "name":"yoder nope",
+    "password":"boomshakur"
+}
+###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{ 
+    "email":"laurie143pelumi@gmail.com",
+    "name":"yoder nop",
+    "password":"boomshakur"
+}
+###
+
+POST http://localhost:3000/auth/verify-email-password-reset
+Content-Type: application/json
+
+{
+    
+    "email":"laurie143pelumi@gmail.com"
+    
+}
+###
+
+
+POST http://localhost:3000/auth/update-password
+Content-Type: application/json
+
+{
+    
+    "email":"laurie143pelumi@gmail.com",
+    "password":"boomshakur"
+}
+###
+
+
+###
+GET http://localhost:3000/onboard

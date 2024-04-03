@@ -1,46 +1,26 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
-import { Secret } from 'jsonwebtoken';
-import jwt from 'jsonwebtoken' 
-import User from '../models/user';
+import {
+  register,
+  login,
+  deleteUser,
+  verifyEmail,
+  verifiedEmailPasswordReset,
+  verifyEmailPasswordReset,
+  updatePassword,
+  updateUser,
+  getUser,
+} from '../controllers/userAuth';
 
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, password: hashedPassword });
-    await user.save();
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Registration failed' });
-  }
-});
-
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(401).json({ error: 'Authentication failed' });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: 'Authentication failed' });
-    }
-
-    const token = jwt.sign({ username: user.username }, process.env.SECRET_KEY as Secret, {
-      expiresIn: '1h',
-    });
-
-    res.status(200).json({ token });
-  } catch (error) {
-    res.status(500).json({ error: 'Login failed' });
-  }
-});
+router.post('/register', register);
+router.post('/login', login);
+router.delete('/user/:email', deleteUser);
+router.get('/verify-email/:signature', verifyEmail);
+router.post('/verify-email-password-reset', verifyEmailPasswordReset);
+router.get('/verified-email-password-reset/:signature', verifiedEmailPasswordReset);
+router.post('/update-password', updatePassword);
+router.put('/update-user', updateUser);
+router.get('/get-user/:email', getUser);
 
 export default router;
