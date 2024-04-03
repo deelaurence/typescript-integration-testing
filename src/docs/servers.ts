@@ -1,12 +1,12 @@
 export default  {
   servers: [
     {
-      url: 'http://localhost:3000',
-      description: 'Local server',
+      url: 'https://typescript-integration-testing.onrender.com',
+      description: 'Live Server',
     },
     {
-      url: 'null',
-      description: 'Live Server',
+      url: 'http://localhost:3000',
+      description: 'Local server',
     },
   ],
 };
