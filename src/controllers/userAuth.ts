@@ -42,23 +42,23 @@ const register = async (req:Request, res:Response) => {
  
     const token = newUser.generateJWT(process.env.JWT_SECRET as Secret);
     
-    // //send Email
-    // if (!req.body.verified) {
-      //   const link = `${process.env.SERVER_URL}/v1/auth/verify-email/${token}`;
-      //   const mailStatus = await sendBrevoMail(
-    //     req.body.email,
-    //     req.body.name,
-    //     link
-    //   );
+    //send Email
+    if (!req.body.verified) {
+        const link = `${process.env.SERVER_URL}/v1/auth/verify-email/${token}`;
+        const mailStatus = await sendBrevoMail(
+        req.body.email,
+        req.body.name,
+        link
+      );
 
-    //   //If mail sending failed delete user from database
-    //   if (mailStatus != 201) {
-    //     await BaseUser.findOneAndDelete({ email: req.body.email });
-    //     throw new InternalServerError(
-      //       "Something went wrong while trying to send verification email, try again later"
-    //     );
-    //   }
-    // }
+      //If mail sending failed delete user from database
+      if (mailStatus != 201) {
+        await BaseUser.findOneAndDelete({ email: req.body.email });
+        throw new InternalServerError(
+            "Something went wrong while trying to send verification email, try again later"
+        );
+      }
+    }
 
     res
     .status(StatusCodes.CREATED)

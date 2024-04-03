@@ -16,6 +16,7 @@ exports.getUser = exports.updateUser = exports.updatePassword = exports.verifyEm
 require("dotenv").config();
 const user_1 = require("../models/user");
 const customResponse_1 = require("../utils/customResponse");
+const brevomail_1 = require("../utils/brevomail");
 const nameFormat_1 = require("../utils/nameFormat");
 const http_status_codes_1 = require("http-status-codes");
 // import generator from "generate-serial-number";
@@ -42,22 +43,16 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const newUser = yield user_1.BaseUser.create(req.body);
         const token = newUser.generateJWT(process.env.JWT_SECRET);
-        // //send Email
-        // if (!req.body.verified) {
-        //   const link = `${process.env.SERVER_URL}/v1/auth/verify-email/${token}`;
-        //   const mailStatus = await sendBrevoMail(
-        //     req.body.email,
-        //     req.body.name,
-        //     link
-        //   );
-        //   //If mail sending failed delete user from database
-        //   if (mailStatus != 201) {
-        //     await BaseUser.findOneAndDelete({ email: req.body.email });
-        //     throw new InternalServerError(
-        //       "Something went wrong while trying to send verification email, try again later"
-        //     );
-        //   }
-        // }
+        //send Email
+        if (!req.body.verified) {
+            const link = `${process.env.SERVER_URL}/v1/auth/verify-email/${token}`;
+            const mailStatus = yield (0, brevomail_1.sendBrevoMail)(req.body.email, req.body.name, link);
+            //If mail sending failed delete user from database
+            if (mailStatus != 201) {
+                yield user_1.BaseUser.findOneAndDelete({ email: req.body.email });
+                throw new customErrors_1.InternalServerError("Something went wrong while trying to send verification email, try again later");
+            }
+        }
         res
             .status(http_status_codes_1.StatusCodes.CREATED)
             .json((0, customResponse_1.successResponse)({
