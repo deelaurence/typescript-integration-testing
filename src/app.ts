@@ -47,7 +47,9 @@ app.use("*",(req,res)=>{
   console.log("Route not found")
   res.status(404).json(new NotFound("Requested resource not found"))
 })
-mongoose.connect(process.env.MONGODB_URI||"mongodb://localhost:27017/user-auth");
+const connectionString:string = process.env.MONGODB_URI||''
+
+mongoose.connect(connectionString);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}..`);

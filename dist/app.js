@@ -38,7 +38,8 @@ app.use("*", (req, res) => {
     console.log("Route not found");
     res.status(404).json(new customErrors_1.NotFound("Requested resource not found"));
 });
-mongoose_1.default.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/user-auth");
+const connectionString = process.env.MONGODB_URI || '';
+mongoose_1.default.connect(connectionString);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}..`);
 });

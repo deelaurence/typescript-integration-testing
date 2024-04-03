@@ -1,4 +1,5 @@
 POST http://localhost:3000/auth/register
+# POST https://typescript-integration-testing.onrender.com/auth/register
 Content-Type: application/json
 
 {
@@ -8,6 +9,8 @@ Content-Type: application/json
     "password":"boomshakur"
 }
 ###
+
+
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
