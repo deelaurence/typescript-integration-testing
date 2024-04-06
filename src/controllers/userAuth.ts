@@ -44,7 +44,7 @@ const register = async (req:Request, res:Response) => {
     
     //send Email
     if (!req.body.verified) {
-        const link = `${process.env.SERVER_URL}/v1/auth/verify-email/${token}`;
+        const link = `${process.env.SERVER_URL}/auth/verify-email/${token}`;
         const mailStatus = await sendBrevoMail(
         req.body.email,
         req.body.name,
@@ -103,7 +103,7 @@ const verifyEmail = async (req:Request, res:Response) => {
       { verified: true }
     );
     // console.log(user?._id)
-    const clientUrl = `${process.env.CLIENT_URL}/login`;
+    const clientUrl = `${process.env.CLIENT_URL}/auth/log-in`;
     res.status(StatusCodes.PERMANENT_REDIRECT).redirect(clientUrl);
   } catch (error:any) {
     console.error(error);
@@ -131,17 +131,17 @@ const verifyEmailPasswordReset = async (req:Request, res:Response) => {
 
     const token = user.generateJWT(process.env.JWT_SECRET as Secret);
     const link = `${process.env.SERVER_URL}/auth/verfied-email-password-reset/${token}`;
-    // const mailStatus = await sendPasswordResetMail(
-    //   req.body.email,
-    //   user.name,
-    //   link
-    // );
-    // console.log(mailStatus);
-    // if (mailStatus != 201) {
-    //   throw new InternalServerError(
-    //     "Something went wrong while trying to send verification email, try again later"
-    //   );
-    // }
+    const mailStatus = await sendPasswordResetMail(
+      req.body.email,
+      user.name,
+      link
+    );
+    console.log(mailStatus);
+    if (mailStatus != 201) {
+      throw new InternalServerError(
+        "Something went wrong while trying to send verification email, try again later"
+      );
+    }
     return res.json(successResponse({
       message: `An Email has been sent to ${req.body.email} follow the instructions accordingly`,
     },StatusCodes.OK,"OK"));
@@ -164,12 +164,11 @@ const verifiedEmailPasswordReset = async (req:Request, res:Response) => {
     );
     //Redirect to a client page that can display the email
     //and prompt the user for thier new password
-
     const userEmail:any = user?.email
     res
       .status(StatusCodes.PERMANENT_REDIRECT)
       .redirect(
-        `${process.env.CLIENT_URL}/reset-password/?email=${encodeURIComponent(
+        `${process.env.CLIENT_URL}/auth/reset-password/?email=${encodeURIComponent(
           userEmail
         )}`
       );
