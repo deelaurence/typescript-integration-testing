@@ -14,6 +14,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const customErrors_1 = require("./errors/customErrors");
 const express_session_1 = __importDefault(require("express-session"));
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,10 @@ app.use((0, express_session_1.default)({
     secret: "replace-with-secret",
     resave: false,
     saveUninitialized: false,
+}));
+app.use((0, cors_1.default)({
+    origin: ['http://localhost:3000'],
+    credentials: true
 }));
 app.use((0, morgan_1.default)("dev"));
 // Initialize passport middleware

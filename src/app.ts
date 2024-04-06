@@ -11,6 +11,7 @@ import morgan from 'morgan'
 import swaggerUI from 'swagger-ui-express'
 import { NotFound } from './errors/customErrors';
 import session from 'express-session'
+import cors from 'cors'
 dotenv.config()
 
 
@@ -27,6 +28,11 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+app.use(cors({
+  origin:['http://localhost:3000'],
+  credentials:true
+}))
 
 
 app.use(morgan("dev"))
