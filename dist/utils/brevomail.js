@@ -153,7 +153,7 @@ const sendBrevoMail = (email, name, link) => __awaiter(void 0, void 0, void 0, f
             <!-- Email header -->
             <tr>
               <td id="header">
-                <h1>SKY SKILL HUB</h1>
+                <h1>RESUME VANTAGE</h1>
               </td>
             </tr>
             <!-- Email body -->
@@ -168,7 +168,7 @@ const sendBrevoMail = (email, name, link) => __awaiter(void 0, void 0, void 0, f
             </tr>
             <!-- Email footer -->
             <tr>
-              <td id="footer">&copy; 2023 Sky Skills. All rights reserved.</td>
+              <td id="footer">&copy; 2024 Resume vantage. All rights reserved.</td>
             </tr>
           </table>
         </td>
@@ -333,7 +333,7 @@ const sendPasswordResetMail = (email, name, link) => __awaiter(void 0, void 0, v
             <!-- Email header -->
             <tr>
               <td id="header">
-                <h1>SKY SKILL HUB</h1>
+                <h1>RESUME VANTAGE</h1>
               </td>
             </tr>
             <!-- Email body -->
@@ -352,7 +352,7 @@ const sendPasswordResetMail = (email, name, link) => __awaiter(void 0, void 0, v
             <!-- Email footer -->
             <tr>
               <td id="footer">
-                &copy; 2023 Sky Skills. All rights reserved.
+                &copy; 2024 Resume vantage. All rights reserved.
               </td>
             </tr>
           </table>

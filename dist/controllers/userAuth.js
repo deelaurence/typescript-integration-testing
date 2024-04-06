@@ -45,7 +45,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = newUser.generateJWT(process.env.JWT_SECRET);
         //send Email
         if (!req.body.verified) {
-            const link = `${process.env.SERVER_URL}/v1/auth/verify-email/${token}`;
+            const link = `${process.env.SERVER_URL}/auth/verify-email/${token}`;
             const mailStatus = yield (0, brevomail_1.sendBrevoMail)(req.body.email, req.body.name, link);
             //If mail sending failed delete user from database
             if (mailStatus != 201) {
@@ -92,7 +92,7 @@ const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const payload = jsonwebtoken_1.default.verify(token, secret);
         const user = yield user_1.BaseUser.findOneAndUpdate({ _id: payload.id }, { verified: true });
         // console.log(user?._id)
-        const clientUrl = `${process.env.CLIENT_URL}/login`;
+        const clientUrl = `${process.env.CLIENT_URL}/auth/log-in`;
         res.status(http_status_codes_1.StatusCodes.PERMANENT_REDIRECT).redirect(clientUrl);
     }
     catch (error) {
@@ -118,17 +118,11 @@ const verifyEmailPasswordReset = (req, res) => __awaiter(void 0, void 0, void 0,
         }
         const token = user.generateJWT(process.env.JWT_SECRET);
         const link = `${process.env.SERVER_URL}/auth/verfied-email-password-reset/${token}`;
-        // const mailStatus = await sendPasswordResetMail(
-        //   req.body.email,
-        //   user.name,
-        //   link
-        // );
-        // console.log(mailStatus);
-        // if (mailStatus != 201) {
-        //   throw new InternalServerError(
-        //     "Something went wrong while trying to send verification email, try again later"
-        //   );
-        // }
+        const mailStatus = yield (0, brevomail_1.sendPasswordResetMail)(req.body.email, user.name, link);
+        console.log(mailStatus);
+        if (mailStatus != 201) {
+            throw new customErrors_1.InternalServerError("Something went wrong while trying to send verification email, try again later");
+        }
         return res.json((0, customResponse_1.successResponse)({
             message: `An Email has been sent to ${req.body.email} follow the instructions accordingly`,
         }, http_status_codes_1.StatusCodes.OK, "OK"));
@@ -152,7 +146,7 @@ const verifiedEmailPasswordReset = (req, res) => __awaiter(void 0, void 0, void 
         const userEmail = user === null || user === void 0 ? void 0 : user.email;
         res
             .status(http_status_codes_1.StatusCodes.PERMANENT_REDIRECT)
-            .redirect(`${process.env.CLIENT_URL}/reset-password/?email=${encodeURIComponent(userEmail)}`);
+            .redirect(`${process.env.CLIENT_URL}/auth/reset-password/?email=${encodeURIComponent(userEmail)}`);
     }
     catch (error) {
         console.error(error);
