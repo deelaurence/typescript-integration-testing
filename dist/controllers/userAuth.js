@@ -117,7 +117,7 @@ const verifyEmailPasswordReset = (req, res) => __awaiter(void 0, void 0, void 0,
             }
         }
         const token = user.generateJWT(process.env.JWT_SECRET);
-        const link = `${process.env.SERVER_URL}/auth/verfied-email-password-reset/${token}`;
+        const link = `${process.env.SERVER_URL}/auth/verified-email-password-reset/${token}`;
         const mailStatus = yield (0, brevomail_1.sendPasswordResetMail)(req.body.email, user.name, link);
         console.log(mailStatus);
         if (mailStatus != 201) {

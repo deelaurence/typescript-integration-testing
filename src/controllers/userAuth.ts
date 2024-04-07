@@ -130,7 +130,7 @@ const verifyEmailPasswordReset = async (req:Request, res:Response) => {
     }
 
     const token = user.generateJWT(process.env.JWT_SECRET as Secret);
-    const link = `${process.env.SERVER_URL}/auth/verfied-email-password-reset/${token}`;
+    const link = `${process.env.SERVER_URL}/auth/verified-email-password-reset/${token}`;
     const mailStatus = await sendPasswordResetMail(
       req.body.email,
       user.name,
