@@ -110,7 +110,7 @@ passport_1.default.deserializeUser(function (id, done) {
 route.get("/auth/google/onboard", (req, res) => {
     const serverResponse = new http_1.ServerResponse(req);
     passport_1.default.authenticate("google", { scope: ["profile", "email"] })(req, serverResponse);
-    // console.log(serverResponse)
+    console.log(serverResponse);
     res.status(200).json((0, customResponse_1.successResponse)({ redirect: serverResponse.getHeader("location") }, 200, 'OK'));
 });
 route.get("/auth/google/redirected", passport_1.default.authenticate("google", {

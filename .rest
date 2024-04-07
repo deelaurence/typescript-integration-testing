@@ -42,7 +42,7 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:3000/auth/verfied-email-password-reset/73ujiv
+GET https://typescript-integration-testing.onrender.com/auth/verified-email-password-reset/signature
 Content-Type: application/json
 
 {
@@ -54,4 +54,4 @@ Content-Type: application/json
 
 
 ###
-GET https://typescript-integration-testing.onrender.com/auth/google/onboard
+GET http://localhost:3000/auth/google/onboard

@@ -119,7 +119,7 @@ route.get("/auth/google/onboard", (req, res) => {
     req,
     serverResponse
   );
-  // console.log(serverResponse)
+  console.log(serverResponse)
   res.status(200).json(successResponse({redirect:serverResponse.getHeader("location")},200,'OK'));
 });
 
