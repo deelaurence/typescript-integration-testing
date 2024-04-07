@@ -54,4 +54,4 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:3000/auth/google/onboard
+GET https://typescript-integration-testing.onrender.com/auth/google/onboard

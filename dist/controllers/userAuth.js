@@ -137,6 +137,7 @@ exports.verifyEmailPasswordReset = verifyEmailPasswordReset;
 //Logic called when email link is clicked
 const verifiedEmailPasswordReset = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.params.signature);
         const token = req.params.signature;
         const secret = process.env.JWT_SECRET;
         const payload = jsonwebtoken_1.default.verify(token, secret);

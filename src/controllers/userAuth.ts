@@ -155,13 +155,13 @@ const verifyEmailPasswordReset = async (req:Request, res:Response) => {
 //Logic called when email link is clicked
 const verifiedEmailPasswordReset = async (req:Request, res:Response) => {
   try {
+    console.log(req.params.signature)
     const token = req.params.signature;
     const secret:any = process.env.JWT_SECRET
     const payload = jwt.verify(token, secret ) as JwtPayload;
     const user = await BaseUser.findOneAndUpdate(
       { _id: payload.id },
-      { canResetPassword: true }
-    );
+      { canResetPassword: true });
     //Redirect to a client page that can display the email
     //and prompt the user for thier new password
     const userEmail:any = user?.email
