@@ -39,6 +39,7 @@ app.use(body_parser_1.default.json());
 app.use("/", googleAuth_1.default);
 app.use('/auth', auth_1.default);
 app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(require('./docs')));
+app.set('trust proxy', 1);
 app.use("*", (req, res) => {
     console.log("Route not found");
     res.status(404).json(new customErrors_1.NotFound("Requested resource not found"));

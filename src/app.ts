@@ -48,7 +48,7 @@ app.use(bodyParser.json());
 app.use("/", googleRoutes);
 app.use('/auth', authRoutes);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(require('./docs')));
-
+app.set('trust proxy',1);
 app.use("*",(req,res)=>{
   console.log("Route not found")
   res.status(404).json(new NotFound("Requested resource not found"))
