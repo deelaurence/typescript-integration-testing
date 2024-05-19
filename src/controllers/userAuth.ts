@@ -2,7 +2,6 @@ require("dotenv").config();
 import {BaseUser, IUser} from '../models/user';
 // const crypto = require("crypto");
 import { Request, Response } from 'express';
-import { successResponse } from '../utils/customResponse';
 
 import { sendBrevoMail, sendPasswordResetMail } from "../utils/brevomail";
 import { isValidNameInput } from "../utils/nameFormat";
@@ -13,13 +12,16 @@ import jwt,{JwtPayload, Secret} from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 // import helpers from "../../helpers";
 
+import { successResponse } from '../utils/customResponse';
 import { BadRequest, NotFound, Unauthenticated, InternalServerError, Conflict } from "../errors/customErrors";
 
 
 
 const register = async (req:Request, res:Response) => {
   try {
-
+    
+    // #swagger.tags = ['Onboarding']
+    
     if (!req.body.name || !req.body.email) {
       throw new BadRequest(
         "Supply Name, Password and Email"

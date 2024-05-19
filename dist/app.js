@@ -7,6 +7,9 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const auth_1 = __importDefault(require("./routes/auth"));
+const Ai_1 = __importDefault(require("./routes/Ai"));
+const swaggerDocument = require('./swagger-output.json');
+const dataCollection_1 = __importDefault(require("./routes/dataCollection"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const passport_1 = __importDefault(require("passport"));
 const googleAuth_1 = __importDefault(require("./routes/googleAuth"));
@@ -35,9 +38,12 @@ app.use(passport_1.default.session());
 //PASSPORT AND EXPRESS SESSION MIDDLEWARES MUST BE
 //INITIALIZED BEFORE CALLING PASSPORT ROUTES
 //THE ORDER MATTERS TOO EXPRESS SESSION, THEN PASSPORT
+// app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(body_parser_1.default.json());
 app.use("/", googleAuth_1.default);
 app.use('/auth', auth_1.default);
+app.use('/prompt', Ai_1.default);
+app.use('/resume', dataCollection_1.default);
 app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(require('./docs')));
 app.set('trust proxy', 1);
 app.use("*", (req, res) => {
@@ -46,6 +52,9 @@ app.use("*", (req, res) => {
 });
 const connectionString = process.env.MONGODB_URI || '';
 mongoose_1.default.connect(connectionString);
+// mongoose.connect(connectionString, {
+//   useUnifiedTopology: true,
+// });
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}..`);
 });

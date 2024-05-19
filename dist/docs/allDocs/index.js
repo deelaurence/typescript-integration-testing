@@ -98,6 +98,30 @@ exports.default = {
                 },
             },
         },
+        '/resume/header': {
+            post: {
+                tags: ['Data collection'],
+                description: 'Header Section',
+                operationId: 'header section',
+                requestBody: {
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/ResumeHeader',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    201: {
+                        description: 'Resume header created',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
         '/auth/google/onboard': {
             get: {
                 tags: ['Google'],

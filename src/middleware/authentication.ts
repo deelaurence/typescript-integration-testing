@@ -19,14 +19,15 @@ const auth = async (req:Request, res:Response, next:NextFunction) => {
     let token = null;
     //if token is being sent through headers
     const { authorization } = req.headers;
-    const cookie_token = req.cookies.token
+    // const cookie_token = req.cookies.token
+    // console.log(authorization,cookie_token)
     if (authorization) {
       token = authorization.split(" ")[1];
     }
     //if token is being sent through cookies
-    if (cookie_token) {
-      token = cookie_token
-    }
+    // if (cookie_token) {
+    //   token = cookie_token
+    // }
 
     //if token is neither in the cookies nor the headers
     if (!token) {
@@ -51,4 +52,4 @@ const auth = async (req:Request, res:Response, next:NextFunction) => {
   }
 };
 
-module.exports = auth;
+export default auth

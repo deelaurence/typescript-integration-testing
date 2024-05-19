@@ -7,9 +7,18 @@ interface IUser extends Document {
   generateJWT(JWT_SECRET: string | Secret): unknown;
   comparePassword(password: string | undefined): boolean;
   name: string;
+  firstName:string;
+  lastName:string;
   verified:boolean;
   // _id?:any;
   email?: {
+    type: string;
+    unique?: string|undefined;
+    trim?: boolean|undefined;
+    lowercase?: boolean|undefined;
+    match?: [RegExp]|undefined;
+  };
+  publicEmail?: {
     type: string;
     unique?: string|undefined;
     trim?: boolean|undefined;
@@ -21,16 +30,25 @@ interface IUser extends Document {
   canResetPassword:boolean;
   displayName: string;
   userId: string;
+  resumes: { profession: string; resume: mongoose.Types.ObjectId }[]; 
   provider:string;
   phoneNumber: string;
   gender: string;
   country:string;
+  city:string;
+
    
   
 }
 
 const userSchema = new Schema<IUser>({
     name: {
+      type: String,//for email sending purposes only
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
       type: String,
     },
     verified: {
@@ -40,6 +58,15 @@ const userSchema = new Schema<IUser>({
     },
     // _id: mongoose.Types.ObjectId,
     email: {
+      type: String,
+      lowercase:true,
+      trim:true,
+      unique: [true, "email already registered"],
+      match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      ],
+    },
+    publicEmail: {
       type: String,
       lowercase:true,
       trim:true,
@@ -59,6 +86,15 @@ const userSchema = new Schema<IUser>({
       type: Boolean,
       default: false,
     },
+    resumes: [
+      {
+          profession: String,
+          resume: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Resume' 
+          }
+      }
+    ],
     displayName: {
       type: String,
     },
@@ -77,6 +113,10 @@ const userSchema = new Schema<IUser>({
       default: null,
     },
     country: {
+      type: String,
+      default: null,
+    },
+    city: {
       type: String,
       default: null,
     }

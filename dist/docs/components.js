@@ -89,10 +89,94 @@ exports.default = {
             description: 'The name of the account users wants to receive funds',
             example: 'Johnny Doe'
         },
+        lastName: {
+            type: 'string',
+            description: 'The last name of user',
+            example: 'Doe'
+        },
+        firstName: {
+            type: 'string',
+            description: 'The first name of user',
+            example: 'Johnny'
+        },
+        city: {
+            type: 'string',
+            description: 'A valid city',
+            example: 'Lisbon'
+        },
+        country: {
+            type: 'string',
+            description: 'A valid country',
+            example: 'Portugal'
+        },
+        profession: {
+            type: 'string',
+            description: 'User profession',
+            example: 'Plumber'
+        },
+        address: {
+            type: 'string',
+            description: 'A valid address',
+            example: 'xyz street, Lisbon'
+        },
+        phoneNumber: {
+            type: 'string',
+            description: 'A valid phone number',
+            example: '090883590324'
+        },
+        publicEmail: {
+            type: 'string',
+            description: 'The email to appear on Resume',
+            example: 'xyz@gmail.com'
+        },
+        jobTitle: {
+            type: 'string',
+            description: 'Job title',
+            example: 'lead plumber'
+        },
         accountNumber: {
             type: 'string',
             description: 'The bank account number users wants to receive funds',
             example: '1234XXXXXXXX'
+        },
+        resumeId: {
+            type: 'string',
+            description: 'The resume _id to be edited',
+            example: "67389482093cn64789"
+        },
+        jobExperienceId: {
+            type: 'string',
+            description: 'The jobExperience _id to be updated',
+            example: "67389482093cn64789"
+        },
+        //     "startDate": "2022-01-01",
+        //       "endDate": "2023-01-01",
+        //       "currentlyWorking": false
+        // }
+        company: {
+            type: 'string',
+            description: 'a valid company',
+            example: "Sygen"
+        },
+        startDate: {
+            type: 'string',
+            description: 'A valid date',
+            example: "2022-01-01"
+        },
+        endDate: {
+            type: 'string',
+            description: 'A valid date',
+            example: "2022-01-01"
+        },
+        currentlyWorking: {
+            type: 'boolean',
+            description: 'Is user still working at the company',
+            example: true
+        },
+        userResponsibilities: {
+            type: 'array',
+            description: "an array of strings containing responsibilities",
+            example: ['responsibility 1', 'responsibility 2']
         },
         bankInformation: {
             type: 'object',
@@ -122,89 +206,44 @@ exports.default = {
                     }
                 },
             },
-            AdminLogin: {
+            //     "lastName":"Alo",
+            //     "firstName":"Odunayo",
+            //     "city":"Los angeles",
+            //     "country":"Nigeria",
+            //     "profession":"Frontend Developer",
+            //     "address":"tocs",
+            //     "phoneNumber":"09084278347",
+            //     "publicEmail":"deverenceconnect@gmail.com"
+            // }
+            ResumeHeader: {
                 type: 'object',
                 properties: {
-                    username: {
-                        $ref: '#/components/username',
+                    lastName: {
+                        $ref: '#/components/lastName',
                     },
-                    password: {
-                        $ref: '#/components/password',
+                    firstName: {
+                        $ref: '#/components/firstName',
+                    },
+                    city: {
+                        $ref: '#/components/city',
+                    },
+                    country: {
+                        $ref: '#/components/country',
+                    },
+                    profession: {
+                        $ref: '#/components/profession',
+                    },
+                    address: {
+                        $ref: '#/components/address',
+                    },
+                    phoneNumber: {
+                        $ref: '#/components/phoneNumber',
+                    },
+                    publicEmail: {
+                        $ref: '#/components/publicEmail',
                     },
                 },
             },
-            AdminUpdate: {
-                type: 'object',
-                properties: {
-                    newUsername: {
-                        $ref: '#/components/newUsername',
-                    },
-                    oldUsername: {
-                        $ref: '#/components/oldUsername',
-                    },
-                    otp: {
-                        $ref: '#/components/otp',
-                    },
-                    newPassword: {
-                        $ref: '#/components/newPassword',
-                    },
-                },
-            },
-            Registration: {
-                type: 'object',
-                properties: {
-                    name: {
-                        $ref: '#/components/name',
-                    },
-                    email: {
-                        $ref: '#/components/email',
-                    },
-                    password: {
-                        $ref: '#/components/password',
-                    },
-                },
-            },
-            Payment: {
-                type: 'object',
-                properties: {
-                    amount: {
-                        $ref: '#/components/amount',
-                    },
-                    description: {
-                        $ref: '#/components/description',
-                    },
-                },
-            },
-            SubmitExercise: {
-                type: 'object',
-                properties: {
-                    studentAnswer: {
-                        $ref: '#/components/studentAnswer',
-                    },
-                },
-            },
-            WithdrawalEdit: {
-                type: 'object',
-                properties: {
-                    email: {
-                        $ref: '#/components/withdrawalOwnerEmail'
-                    },
-                    id: {
-                        $ref: '#/components/id'
-                    },
-                    status: {
-                        $ref: '#/components/status'
-                    }
-                }
-            },
-            WithdrawalCreate: {
-                type: 'object',
-                properties: {
-                    bankInformation: {
-                        $ref: '#/components/bankInformation'
-                    }
-                }
-            }
         },
     },
 };

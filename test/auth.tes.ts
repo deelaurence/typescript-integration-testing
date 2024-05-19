@@ -6,7 +6,7 @@ let token:string;
 
 type UserObject = Record<string,string>;
 const user1:UserObject={
-  email:'testuser@gmail.com',
+  email:'testuser1@gmail.com',
   name:'Poco Lee',
   password:'supersecret',
   newPassword:'unsupersecret'

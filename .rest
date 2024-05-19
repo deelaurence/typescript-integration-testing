@@ -11,6 +11,10 @@ Content-Type: application/json
 ###
 
 
+
+
+
+
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
@@ -32,6 +36,14 @@ Content-Type: application/json
 ###
 
 
+POST http://localhost:3000/prompt/generate
+Content-Type: application/json
+
+{
+    "prompt":"I am writing a resume send me 10 responsibities of a pastor and use the first person speaking in a javascript array without linebreaks"
+}
+
+###
 POST http://localhost:3000/auth/update-password
 Content-Type: application/json
 
@@ -51,6 +63,123 @@ Content-Type: application/json
     "password":"boomshakur"
 }
 ###
+#step one header section
+#firstName, lastName, city, phoneNumber, email, address
+
+POST http://localhost:3000/resume/header
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+
+{   
+    "lastName":"Alo",
+    "firstName":"Odunayo",
+    "city":"Los angeles",
+    "country":"Nigeria",
+    "profession":"Frontend Developer",
+    "address":"tocs",
+    "phoneNumber":"09084278347",
+    "publicEmail":"deverenceconnect@gmail.com"
+}
+
+###
+
+
+#step 2, job experiences section
+#jobTitle, company, country, city, startDate, endDate
+#currentlyWorking
+
+POST http://localhost:3000/resume/experiences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+
+{
+      "jobTitle": "Product Designer",
+      "resumeId":"66489cd996c6126d3a5affb5",
+      "company": "Tech Inc",
+      "country": "USA",
+      "city": "New York",
+      "startDate": "2022-01-01",
+      "endDate": "2023-01-01",
+      "currentlyWorking": false
+}
+
+###
+
+#step 2B, job experiences section
+#jobTitle, company, country, city, startDate, endDate
+#currentlyWorking
+
+POST http://localhost:3000/resume/experiences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+
+{
+      "jobTitle": "Dev Ops Engineer",
+      "resumeId":"66463ff1a56a75afd711dcd4",
+      "company": "Sky Studio",
+      "country": "Nigeria",
+      "city": "Akure",
+      "startDate": "2022-01-01",
+      "endDate": "2023-01-01",
+      "currentlyWorking": false
+}
+
+###
+
+
+
+
+
+
+#step 3, add responsibilities to job experiences
+#resumeId, jobExperienceId, responsibilitiesArray
+
+
+
+POST http://localhost:3000/resume/responsibilities
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+
+{      
+      "resumeId":"66489cd996c6126d3a5affb5",
+      "jobExperienceId":"66489db196c6126d3a5affbb",
+      "userResponsibilities":[
+      "Conducted user research studies to gather insights and understand user needs.",
+      "Created wireframes, prototypes, and mockups to demonstrate design concepts and functionality.",
+      "Implemented pixel-perfect designs to ensure consistency and adherence to UI specifications.",
+      "Collaborated with engineers and other team members to bring designs to life.",
+      "Developed and maintained design systems to ensure consistency and scalability.",
+      "Explored cutting-edge design trends and technologies to enhance user experience.",
+      "Analyzed user feedback and made iterative improvements to designs."
+      ]
+}
+
+###
+
+#step 3B, add responsibilities to job experiences
+#resumeId, jobExperienceId, responsibilitiesArray
+
+POST http://localhost:3000/resume/responsibilities
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+
+{      
+      "resumeId":"66463ff1a56a75afd711dcd4",
+      "jobExperienceId":"664740574575b921c7c9edc3",
+      "userResponsibilities":[
+      "Automated software builds and deployments",
+      "Monitored and optimized performance and scalability",
+      "Resolved production incidents and outages",
+      "Ensured compliance with DevOps best practices",
+      "Collaborated with development teams to improve workflow",
+      "Implemented and enforced security policies",
+      "Documented and maintained technical processes",
+      "Conducted training and onboarding for new team members"
+      ]
+}
+
+###
+
 
 
 ###

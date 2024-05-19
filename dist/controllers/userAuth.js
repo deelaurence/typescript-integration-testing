@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUser = exports.updateUser = exports.updatePassword = exports.verifyEmailPasswordReset = exports.verifiedEmailPasswordReset = exports.verifyEmail = exports.deleteUser = exports.login = exports.register = void 0;
 require("dotenv").config();
 const user_1 = require("../models/user");
-const customResponse_1 = require("../utils/customResponse");
 const brevomail_1 = require("../utils/brevomail");
 const nameFormat_1 = require("../utils/nameFormat");
 const http_status_codes_1 = require("http-status-codes");
@@ -24,9 +23,11 @@ const http_status_codes_1 = require("http-status-codes");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 // import helpers from "../../helpers";
+const customResponse_1 = require("../utils/customResponse");
 const customErrors_1 = require("../errors/customErrors");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        // #swagger.tags = ['Onboarding']
         if (!req.body.name || !req.body.email) {
             throw new customErrors_1.BadRequest("Supply Name, Password and Email");
         }
