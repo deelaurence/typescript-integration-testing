@@ -78,7 +78,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
     "country":"Nigeria",
     "profession":"Frontend Developer",
     "address":"tocs",
-    "phoneNumber":"09084278347",
+    "phoneNumber":9084278347,
     "publicEmail":"deverenceconnect@gmail.com"
 }
 

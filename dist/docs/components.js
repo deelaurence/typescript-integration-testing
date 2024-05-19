@@ -142,12 +142,12 @@ exports.default = {
         resumeId: {
             type: 'string',
             description: 'The resume _id to be edited',
-            example: "67389482093cn64789"
+            example: "66489cd996c6126d3a5affb6"
         },
         jobExperienceId: {
             type: 'string',
             description: 'The jobExperience _id to be updated',
-            example: "67389482093cn64789"
+            example: "66489cd996c6126d3a5affb6"
         },
         //     "startDate": "2022-01-01",
         //       "endDate": "2023-01-01",
@@ -241,6 +241,49 @@ exports.default = {
                     },
                     publicEmail: {
                         $ref: '#/components/publicEmail',
+                    },
+                },
+            },
+            ExperienceSection: {
+                type: 'object',
+                properties: {
+                    jobTitle: {
+                        $ref: '#/components/jobTitle',
+                    },
+                    resumeId: {
+                        $ref: '#/components/resumeId',
+                    },
+                    city: {
+                        $ref: '#/components/city',
+                    },
+                    country: {
+                        $ref: '#/components/country',
+                    },
+                    company: {
+                        $ref: '#/components/company',
+                    },
+                    startDate: {
+                        $ref: '#/components/startDate',
+                    },
+                    endDate: {
+                        $ref: '#/components/endDate',
+                    },
+                    currentlyWorking: {
+                        $ref: '#/components/currentlyWorking',
+                    },
+                },
+            },
+            ResponsibilitiesSection: {
+                type: 'object',
+                properties: {
+                    resumeId: {
+                        $ref: '#/components/resumeId',
+                    },
+                    jobExperienceId: {
+                        $ref: '#/components/jobExperienceId',
+                    },
+                    userResponsibilities: {
+                        $ref: '#/components/userResponsibilities',
                     },
                 },
             },

@@ -100,6 +100,11 @@ exports.default = {
         },
         '/resume/header': {
             post: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
                 tags: ['Data collection'],
                 description: 'Header Section',
                 operationId: 'header section',
@@ -115,6 +120,64 @@ exports.default = {
                 responses: {
                     201: {
                         description: 'Resume header created',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
+        '/resume/experiences': {
+            post: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
+                tags: ['Data collection'],
+                description: 'Experience Section',
+                operationId: 'experince section',
+                requestBody: {
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/ExperienceSection',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    201: {
+                        description: 'Resume experience created',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
+        '/resume/responsibilities': {
+            post: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
+                tags: ['Data collection'],
+                description: 'Responsibilities Section',
+                operationId: 'resp section',
+                requestBody: {
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/ResponsibilitiesSection',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    201: {
+                        description: 'Resume responsibilities created',
                     },
                     500: {
                         description: 'Server error',

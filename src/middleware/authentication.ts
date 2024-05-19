@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
-const { Unauthenticated } = require("../errors/customErrors");
-
+// conskt { Unauthenticated } = require("../errors/customErrors");
+import { Unauthenticated } from "../errors/customErrors";
 import { Request, Response, NextFunction } from "express";
 import { JwtPayload } from "jsonwebtoken";
 
@@ -43,11 +43,15 @@ const auth = async (req:Request, res:Response, next:NextFunction) => {
     const { message, statusCode } = error;
     console.log(statusCode, message);
     if (statusCode) {
-      res.status(statusCode).json({ message });
+      res.status(StatusCodes.UNAUTHORIZED)
+    .json(new Unauthenticated(message));
       console.log(statusCode, message);
       return;
     }
-    res.status(StatusCodes.UNAUTHORIZED).json({ error: message });
+
+    
+    res.status(StatusCodes.UNAUTHORIZED)
+    .json(new Unauthenticated(message));
     console.log(message);
   }
 };

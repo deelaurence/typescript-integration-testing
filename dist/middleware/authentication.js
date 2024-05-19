@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
-const { Unauthenticated } = require("../errors/customErrors");
+// conskt { Unauthenticated } = require("../errors/customErrors");
+const customErrors_1 = require("../errors/customErrors");
 const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log("auth start");
@@ -30,7 +31,7 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
         // }
         //if token is neither in the cookies nor the headers
         if (!token) {
-            throw new Unauthenticated("supply token");
+            throw new customErrors_1.Unauthenticated("supply token");
         }
         const payload = jwt.verify(token, process.env.JWT_SECRET);
         req.decoded = { name: payload.name, id: payload.id };
@@ -43,11 +44,13 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
         const { message, statusCode } = error;
         console.log(statusCode, message);
         if (statusCode) {
-            res.status(statusCode).json({ message });
+            res.status(StatusCodes.UNAUTHORIZED)
+                .json(new customErrors_1.Unauthenticated(message));
             console.log(statusCode, message);
             return;
         }
-        res.status(StatusCodes.UNAUTHORIZED).json({ error: message });
+        res.status(StatusCodes.UNAUTHORIZED)
+            .json(new customErrors_1.Unauthenticated(message));
         console.log(message);
     }
 });
