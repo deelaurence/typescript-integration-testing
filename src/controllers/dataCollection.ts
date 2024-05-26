@@ -77,7 +77,7 @@ const headerSection = async (req: Request, res: Response): Promise<void> => {
 
 
       res.status(201).json(successResponse(
-         savedResume,StatusCodes.CREATED,"UPDATED"
+         savedResume,StatusCodes.CREATED,"Bravo, your header section is completed now proceed to add your experience"
         ));
     } catch (error:any) {
       // Handle errors
@@ -143,7 +143,7 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
     res.status(201).json(successResponse(
         {updatedResume,responsiblitiesRecommendations},
         StatusCodes.CREATED,
-        "CREATED"
+        `Setting up nicely, now add the responsibilities you carried out at ${company}`
       ));
   } catch (error:any) {
     // Handle errors
@@ -189,7 +189,7 @@ const responsibilitiesSection = async (req: Request, res: Response): Promise<voi
       res.status(201).json(successResponse(
           updatedResume,
           StatusCodes.CREATED,
-          "CREATED"
+          `Cool! you added (${userResponsibilities.length}) responsibilities to your job role at ${jobExperience.company} `
         ));
     } catch (error:any) {
       // Handle errors

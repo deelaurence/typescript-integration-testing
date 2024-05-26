@@ -63,7 +63,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             gender: newUser.gender,
             country: newUser.country,
             userToken: token,
-        }, http_status_codes_1.StatusCodes.CREATED, "CREATED"));
+        }, http_status_codes_1.StatusCodes.CREATED, "To continue your registration, click the link sent to your email"));
     }
     catch (error) {
         console.log(error.message);
@@ -124,9 +124,7 @@ const verifyEmailPasswordReset = (req, res) => __awaiter(void 0, void 0, void 0,
         if (mailStatus != 201) {
             throw new customErrors_1.InternalServerError("Something went wrong while trying to send verification email, try again later");
         }
-        return res.json((0, customResponse_1.successResponse)({
-            message: `An Email has been sent to ${req.body.email} follow the instructions accordingly`,
-        }, http_status_codes_1.StatusCodes.OK, "OK"));
+        return res.json((0, customResponse_1.successResponse)({}, http_status_codes_1.StatusCodes.OK, `An Email has been sent to ${req.body.email} follow the instructions accordingly`));
     }
     catch (error) {
         console.log(error);
@@ -175,7 +173,7 @@ const updatePassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const edited = yield user_1.BaseUser.findOneAndUpdate({
             email: req.body.email,
         }, { password: hashedPassword, canResetPassword: false }, { new: true, runValidators: true });
-        res.json((0, customResponse_1.successResponse)({ message: "Password Reset Successful" }, http_status_codes_1.StatusCodes.OK, "OK"));
+        res.json((0, customResponse_1.successResponse)({}, http_status_codes_1.StatusCodes.OK, "Password Reset Successful"));
     }
     catch (error) {
         console.error(error);
@@ -213,7 +211,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             phonenumber: user.phoneNumber,
             gender: user.gender,
             country: user.country,
-        }, http_status_codes_1.StatusCodes.OK, 'OK'));
+        }, http_status_codes_1.StatusCodes.OK, 'Welcome back'));
     }
     catch (error) {
         const { message, statusCode } = error;

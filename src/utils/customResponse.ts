@@ -1,8 +1,9 @@
-const successResponse = (payload:{[key:string]:any}, statusCode:number, code:string)=>{
+
+const successResponse = <T>(payload:T, statusCode:number, message:string)=>{
     return {
         status:"success",
+        message,
         statusCode,
-        code,
         payload 
     }
 }
@@ -10,3 +11,7 @@ const successResponse = (payload:{[key:string]:any}, statusCode:number, code:str
 
 
 export{successResponse}
+
+
+
+

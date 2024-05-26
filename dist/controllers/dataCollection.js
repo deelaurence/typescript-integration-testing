@@ -60,7 +60,7 @@ const headerSection = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const savedResume = yield newResume.save();
         //push resumeId into the user document
         yield user_1.BaseUser.findByIdAndUpdate(userId, { $push: { resumes: { profession, resume: savedResume._id } } });
-        res.status(201).json((0, customResponse_1.successResponse)(savedResume, http_status_codes_1.StatusCodes.CREATED, "UPDATED"));
+        res.status(201).json((0, customResponse_1.successResponse)(savedResume, http_status_codes_1.StatusCodes.CREATED, "Bravo, your header section is completed now proceed to add your experience"));
     }
     catch (error) {
         // Handle errors
@@ -97,7 +97,7 @@ const experienceSection = (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
         yield rawResponsibity.save();
         // Respond with the saved resume
-        res.status(201).json((0, customResponse_1.successResponse)({ updatedResume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, "CREATED"));
+        res.status(201).json((0, customResponse_1.successResponse)({ updatedResume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Setting up nicely, now add the responsibilities you carried out at ${company}`));
     }
     catch (error) {
         // Handle errors
@@ -128,7 +128,7 @@ const responsibilitiesSection = (req, res) => __awaiter(void 0, void 0, void 0, 
         yield resume.save();
         const updatedResume = yield resume_1.Resume.findById(resumeId);
         // Respond with the saved resume
-        res.status(201).json((0, customResponse_1.successResponse)(updatedResume, http_status_codes_1.StatusCodes.CREATED, "CREATED"));
+        res.status(201).json((0, customResponse_1.successResponse)(updatedResume, http_status_codes_1.StatusCodes.CREATED, `Cool! you added (${userResponsibilities.length}) responsibilities to your job role at ${jobExperience.company} `));
     }
     catch (error) {
         // Handle errors

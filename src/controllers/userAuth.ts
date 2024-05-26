@@ -72,7 +72,8 @@ const register = async (req:Request, res:Response) => {
       gender: newUser.gender,
       country: newUser.country,
       userToken: token,
-    },StatusCodes.CREATED,"CREATED"
+    },StatusCodes.CREATED,
+    "To continue your registration, click the link sent to your email"
     ));
   } catch (error:any) {
     console.log(error.message);
@@ -144,9 +145,9 @@ const verifyEmailPasswordReset = async (req:Request, res:Response) => {
         "Something went wrong while trying to send verification email, try again later"
       );
     }
-    return res.json(successResponse({
-      message: `An Email has been sent to ${req.body.email} follow the instructions accordingly`,
-    },StatusCodes.OK,"OK"));
+    return res.json(successResponse({},
+      StatusCodes.OK,
+      `An Email has been sent to ${req.body.email} follow the instructions accordingly`));
   } catch (error:any) {
     console.log(error);
     res.status(StatusCodes.BAD_REQUEST)
@@ -208,8 +209,8 @@ const updatePassword = async (req:Request, res:Response) => {
       { new: true, runValidators: true }
     );
     res.json(successResponse(
-      { message: "Password Reset Successful" },
-      StatusCodes.OK,"OK"));
+      {},
+      StatusCodes.OK,"Password Reset Successful"));
   } catch (error:any) {
     console.error(error);
     res.status(StatusCodes.BAD_REQUEST).json(error);
@@ -248,7 +249,7 @@ const login = async (req:Request, res:Response) => {
       phonenumber: user.phoneNumber,
       gender: user.gender,
       country: user.country,
-    },StatusCodes.OK,'OK'));
+    },StatusCodes.OK,'Welcome back'));
   } catch (error:any) {
     const { message, statusCode } = error;
     if (statusCode) {
