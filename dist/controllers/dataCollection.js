@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = void 0;
+exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = void 0;
 const resume_1 = require("../models/resume");
 const http_status_codes_1 = require("http-status-codes");
 const customResponse_1 = require("../utils/customResponse");
@@ -138,3 +138,32 @@ const responsibilitiesSection = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.responsibilitiesSection = responsibilitiesSection;
+//Add education
+const educationSection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { resumeId, schoolName, schoolLocation, degreeType, studyField, startDate, graduationDate, stillEnrolled } = req.body;
+        const resume = yield resume_1.Resume.findById(resumeId);
+        if (!resume) {
+            throw new customErrors_1.NotFound("Resume does not exist");
+        }
+        // push school into the education array
+        const updatedResume = yield resume_1.Resume.findByIdAndUpdate(resumeId, { $push: { education: {
+                    schoolName,
+                    schoolLocation,
+                    degreeType,
+                    studyField,
+                    startDate,
+                    graduationDate,
+                    stillEnrolled
+                } } }, { new: true });
+        // Respond with the saved resume
+        res.status(201).json((0, customResponse_1.successResponse)(updatedResume, http_status_codes_1.StatusCodes.CREATED, `You added ${schoolName} as a school you obtained a ${degreeType} degree`));
+    }
+    catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(new customErrors_1.InternalServerError(error.message));
+    }
+});
+exports.educationSection = educationSection;

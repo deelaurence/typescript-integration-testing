@@ -11,4 +11,5 @@ router.use(authentication_1.default);
 router.post('/header', dataCollection_1.headerSection);
 router.post('/experiences', dataCollection_1.experienceSection);
 router.post('/responsibilities', dataCollection_1.responsibilitiesSection);
+router.post('/education', dataCollection_1.educationSection);
 exports.default = router;

@@ -1,26 +1,20 @@
 import mongoose, { Schema, model, Document } from 'mongoose';
 
+
+//INTERFACES
+
+
 interface IResponsibility extends Document {
   jobTitle: string;
-  responsibilities: string[]; // Array of strings
-  // Add any other fields for responsibilities
+  responsibilities: string[]; 
 }
 
-const responsibilitySchema = new Schema<IResponsibility>({
-  jobTitle: {
-    type: String,
-    required: true,
-  },
-  responsibilities: [{
-    type: String,
-    required: true,
-  }],
-  // Add any other fields for responsibilities
-});
 
-const Responsibility = model<IResponsibility>('Responsibility', responsibilitySchema);
+interface IRawResponsibility extends Document {
+  jobTitle: string;
+  responsibilities: string[]; 
+}
 
-export { IResponsibility, Responsibility };
 
 interface IResume extends Document {
   jobTitle: string;
@@ -49,7 +43,51 @@ interface IResume extends Document {
     currentlyWorking: boolean;
     responsibilities: mongoose.Types.ObjectId;
   }[];
+
+
+  education: {
+    _id: mongoose.Types.ObjectId;
+    schoolName: string;
+    schoolLocation: string;
+    degreeType: string;
+    studyField: string;
+    startDate: string;
+    graduationDate: string;
+    stillEnrolled: boolean;
+  }[];
 }
+
+
+
+
+
+//SCHEMA DEFINITIONS
+
+
+const responsibilitySchema = new Schema<IResponsibility>({
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  responsibilities: [{
+    type: String,
+    required: true,
+  }],
+});
+
+
+const RawResponsibilitySchema = new Schema<IRawResponsibility>({
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  responsibilities: [{
+    type: String,
+    required: true,
+  }],
+});
+
+
 
 const resumeSchema = new Schema<IResume>({
   
@@ -116,31 +154,52 @@ const resumeSchema = new Schema<IResume>({
       },
     },
   ],
+  education: [
+    {
+      schoolName: {
+        type: String,
+        required: true,
+      },
+      schoolLocation: {
+        type: String,
+        required: true,
+      },
+      degreeType: {
+        type: String,
+        required: true,
+      },
+      studyField: {
+        type: String,
+        required: true,
+      },
+      startDate: {
+        type: String,
+        required: true,
+      },
+      graduationDate:{
+        type:String
+      },
+      stillEnrolled: {
+        type: Boolean,
+      }},],
 });
+
+
+
+
+//EXPORTS
+
 
 const Resume = model<IResume>('Resume', resumeSchema);
 
 export {IResume, Resume};
 
 
-interface IRawResponsibility extends Document {
-  jobTitle: string;
-  responsibilities: string[]; // Array of strings
-  // Add any other fields for responsibilities
-}
-
-const RawResponsibilitySchema = new Schema<IRawResponsibility>({
-  jobTitle: {
-    type: String,
-    required: true,
-  },
-  responsibilities: [{
-    type: String,
-    required: true,
-  }],
-  // Add any other fields for responsibilities
-});
-
 const RawResponsibility = model<IRawResponsibility>('RawResponsibility', RawResponsibilitySchema);
 
 export { IRawResponsibility, RawResponsibility };
+
+
+const Responsibility = model<IResponsibility>('Responsibility', responsibilitySchema);
+
+export { IResponsibility, Responsibility };

@@ -183,5 +183,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 
 
+POST http://localhost:3000/resume/education
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+
+{
+      "resumeId":"66489cd996c6126d3a5affb5",
+      "schoolName": "ABC School",
+      "schoolLocation": "Nigeria",
+      "studyField": "Pharmacy",
+      "degreeType":"MSc. Pharm",
+      "startDate": "2022-01-01",
+      "endDate": "2023-01-01",
+      "stillEnrolled": false
+}
+
+###
+
+
+
+
 ###
 GET http://localhost:3000/auth/google/onboard
