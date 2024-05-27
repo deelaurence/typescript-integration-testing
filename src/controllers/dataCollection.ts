@@ -198,6 +198,56 @@ const responsibilitiesSection = async (req: Request, res: Response): Promise<voi
       .json(new InternalServerError(error.message));
     }
   };
-  
 
-export { experienceSection, headerSection, responsibilitiesSection };
+  
+//Add education
+const educationSection = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      resumeId,
+      schoolName,
+      schoolLocation,
+      degreeType,
+      studyField,
+      startDate,
+      graduationDate,
+      stillEnrolled
+    } = req.body;
+
+    const resume = await Resume.findById(resumeId)
+    if(!resume){
+        throw new NotFound("Resume does not exist")
+    }
+    
+    // push school into the education array
+    const updatedResume:any =await Resume.findByIdAndUpdate(
+      resumeId,
+      { $push: { education:{
+        schoolName,
+        schoolLocation,
+        degreeType,
+        studyField,
+        startDate,
+        graduationDate,
+        stillEnrolled
+      } } },
+      { new: true } 
+    )
+    
+
+    // Respond with the saved resume
+    res.status(201).json(successResponse(
+        updatedResume,
+        StatusCodes.CREATED,
+        `You added ${schoolName} as a school where you obtained a ${degreeType} degree`
+      ));
+  } catch (error:any) {
+    // Handle errors
+    console.error(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json(new InternalServerError(error.message));
+  }
+};
+
+
+export { experienceSection, headerSection, responsibilitiesSection, educationSection };

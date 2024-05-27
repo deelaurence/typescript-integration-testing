@@ -195,6 +195,38 @@ export default {
       },
     },
     
+    '/resume/education': {
+      post: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        tags: ['Data collection'],
+        description: 'Education Section',
+        operationId: 'education section',
+
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/SchoolSection',
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: 'Resume education created',
+          },
+          500: {
+            description: 'Server error',
+          },
+        },
+      },
+    },
+
+
     '/auth/google/onboard': {
       get: {
 

@@ -178,6 +178,36 @@ exports.default = {
             description: "an array of strings containing responsibilities",
             example: ['responsibility 1', 'responsibility 2']
         },
+        schoolName: {
+            type: 'string',
+            description: 'Name of the school',
+            example: 'Harvard University'
+        },
+        schoolLocation: {
+            type: 'string',
+            description: 'Location of the school',
+            example: 'Cambridge, MA'
+        },
+        degreeType: {
+            type: 'string',
+            description: 'Type of degree obtained',
+            example: 'Bachelor of Science'
+        },
+        studyField: {
+            type: 'string',
+            description: 'Field of study',
+            example: 'Computer Science'
+        },
+        graduationDate: {
+            type: 'string',
+            description: 'Date of graduation',
+            example: '2024-05-19'
+        },
+        stillEnrolled: {
+            type: 'boolean',
+            description: 'Whether the person is still enrolled',
+            example: false
+        },
         bankInformation: {
             type: 'object',
             example: {
@@ -284,6 +314,35 @@ exports.default = {
                     },
                     userResponsibilities: {
                         $ref: '#/components/userResponsibilities',
+                    },
+                },
+            },
+            SchoolSection: {
+                type: 'object',
+                properties: {
+                    resumeId: {
+                        $ref: '#/components/resumeId',
+                    },
+                    schoolName: {
+                        $ref: '#/components/schoolName',
+                    },
+                    schoolLocation: {
+                        $ref: '#/components/schoolLocation',
+                    },
+                    degreeType: {
+                        $ref: '#/components/degreeType',
+                    },
+                    studyField: {
+                        $ref: '#/components/studyField',
+                    },
+                    startDate: {
+                        $ref: '#/components/startDate',
+                    },
+                    graduationDate: {
+                        $ref: '#/components/graduationDate',
+                    },
+                    stillEnrolled: {
+                        $ref: '#/components/stillEnrolled',
                     },
                 },
             },

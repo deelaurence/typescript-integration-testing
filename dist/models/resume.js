@@ -23,8 +23,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RawResponsibility = exports.Resume = exports.Responsibility = void 0;
+exports.Responsibility = exports.RawResponsibility = exports.Resume = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
+//SCHEMA DEFINITIONS
 const responsibilitySchema = new mongoose_1.Schema({
     jobTitle: {
         type: String,
@@ -34,10 +35,17 @@ const responsibilitySchema = new mongoose_1.Schema({
             type: String,
             required: true,
         }],
-    // Add any other fields for responsibilities
 });
-const Responsibility = (0, mongoose_1.model)('Responsibility', responsibilitySchema);
-exports.Responsibility = Responsibility;
+const RawResponsibilitySchema = new mongoose_1.Schema({
+    jobTitle: {
+        type: String,
+        required: true,
+    },
+    responsibilities: [{
+            type: String,
+            required: true,
+        }],
+});
 const resumeSchema = new mongoose_1.Schema({
     profession: {
         type: String,
@@ -102,19 +110,41 @@ const resumeSchema = new mongoose_1.Schema({
             },
         },
     ],
+    education: [
+        {
+            schoolName: {
+                type: String,
+                required: true,
+            },
+            schoolLocation: {
+                type: String,
+                required: true,
+            },
+            degreeType: {
+                type: String,
+                required: true,
+            },
+            studyField: {
+                type: String,
+                required: true,
+            },
+            startDate: {
+                type: String,
+                required: true,
+            },
+            graduationDate: {
+                type: String
+            },
+            stillEnrolled: {
+                type: Boolean,
+            }
+        },
+    ],
 });
+//EXPORTS
 const Resume = (0, mongoose_1.model)('Resume', resumeSchema);
 exports.Resume = Resume;
-const RawResponsibilitySchema = new mongoose_1.Schema({
-    jobTitle: {
-        type: String,
-        required: true,
-    },
-    responsibilities: [{
-            type: String,
-            required: true,
-        }],
-    // Add any other fields for responsibilities
-});
 const RawResponsibility = (0, mongoose_1.model)('RawResponsibility', RawResponsibilitySchema);
 exports.RawResponsibility = RawResponsibility;
+const Responsibility = (0, mongoose_1.model)('Responsibility', responsibilitySchema);
+exports.Responsibility = Responsibility;
