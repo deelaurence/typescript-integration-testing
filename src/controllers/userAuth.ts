@@ -228,16 +228,9 @@ const login = async (req:Request, res:Response) => {
         .populate({path:'resumes.resume'});
     
 
-    interface IMappedResume extends IResume {
-      resume:{
-        createdAt:string,
-        updatedAt:string,
-        completed:boolean
-      }
-    }    
 
-    //@ts-ignore
-    const mappedResume = user?.resumes.map((single:IMappedResume)=>{
+    // @ts-ignor
+    const mappedResume = user?.resumes.map((single:any)=>{
       return {
         _id:single._id,
         profession:single.profession,

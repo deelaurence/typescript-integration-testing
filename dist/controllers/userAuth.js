@@ -189,7 +189,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const user = yield user_1.BaseUser.findOne({ email: email })
             .populate({ path: 'resumes.resume' });
-        //@ts-ignore
+        // @ts-ignor
         const mappedResume = user === null || user === void 0 ? void 0 : user.resumes.map((single) => {
             return {
                 _id: single._id,

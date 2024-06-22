@@ -163,7 +163,7 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
 
     // Respond with the saved resume
     res.status(201).json(successResponse(
-        {updatedResume,responsiblitiesRecommendations},
+        {resume:updatedResume,responsiblitiesRecommendations},
         StatusCodes.CREATED,
         `Setting up nicely, now add the responsibilities you carried out at ${company}`
       ));
