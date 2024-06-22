@@ -80,6 +80,11 @@ const experienceSection = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
         const profession = resume.profession;
         const responsiblitiesRecommendations = yield (0, prompt_1.recommendResponsibilities)(profession, company, jobTitle, city, country);
+        if (resume.jobExperiences.length) {
+            // Respond with the saved resume
+            res.status(201).json((0, customResponse_1.successResponse)({ resume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Dev_Mode_Preventing_Duplicates`));
+            return;
+        }
         // push experience into the experiences array
         const updatedResume = yield resume_1.Resume.findByIdAndUpdate(resumeId, { $push: { jobExperiences: {
                     jobTitle,
@@ -157,7 +162,7 @@ const educationSection = (req, res) => __awaiter(void 0, void 0, void 0, functio
                     stillEnrolled
                 } } }, { new: true });
         // Respond with the saved resume
-        res.status(201).json((0, customResponse_1.successResponse)(updatedResume, http_status_codes_1.StatusCodes.CREATED, `You added ${schoolName} as a school you obtained a ${degreeType} degree`));
+        res.status(201).json((0, customResponse_1.successResponse)(updatedResume, http_status_codes_1.StatusCodes.CREATED, `You added ${schoolName} as a school where you obtained a ${degreeType} degree`));
     }
     catch (error) {
         // Handle errors

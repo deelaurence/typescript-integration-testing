@@ -114,6 +114,28 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
     )
 
     
+
+
+
+
+
+
+    if(resume.jobExperiences.length){
+        // Respond with the saved resume
+          res.status(201).json(successResponse(
+            {resume,responsiblitiesRecommendations},
+            StatusCodes.CREATED,
+            `Dev_Mode_Preventing_Duplicates`
+          ));
+      return
+    }
+
+
+
+
+
+
+
     // push experience into the experiences array
     const updatedResume:any =await Resume.findByIdAndUpdate(
       resumeId,

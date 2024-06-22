@@ -47,6 +47,10 @@ const RawResponsibilitySchema = new mongoose_1.Schema({
         }],
 });
 const resumeSchema = new mongoose_1.Schema({
+    completed: {
+        type: Boolean,
+        default: false,
+    },
     profession: {
         type: String,
     },
@@ -140,6 +144,8 @@ const resumeSchema = new mongoose_1.Schema({
             }
         },
     ],
+}, {
+    timestamps: true
 });
 //EXPORTS
 const Resume = (0, mongoose_1.model)('Resume', resumeSchema);
