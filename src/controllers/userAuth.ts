@@ -1,5 +1,6 @@
 require("dotenv").config();
 import {BaseUser, IUser} from '../models/user';
+import { IResume } from '../models/resume';
 // const crypto = require("crypto");
 import { Request, Response } from 'express';
 
@@ -223,8 +224,22 @@ const login = async (req:Request, res:Response) => {
     if (!email || !password) {
       throw new BadRequest("email and password cannot be empty");
     }
-    const user = await BaseUser.findOne({ email: email });
+    const user = await BaseUser.findOne({ email: email })
+        .populate({path:'resumes.resume'});
+    
 
+
+    // @ts-ignor
+    const mappedResume = user?.resumes.map((single:any)=>{
+      return {
+        _id:single._id,
+        profession:single.profession,
+        createdAt:single.resume.createdAt,
+        updatedAt:single.resume.updatedAt,
+        completed:single.resume.completed
+      }
+    })
+    console.log(mappedResume)
     if (!user) {
       throw new NotFound("Email not registered, Sign up");
     }
@@ -249,6 +264,7 @@ const login = async (req:Request, res:Response) => {
       phonenumber: user.phoneNumber,
       gender: user.gender,
       country: user.country,
+      resumes: mappedResume
     },StatusCodes.OK,'Welcome back'));
   } catch (error:any) {
     const { message, statusCode } = error;

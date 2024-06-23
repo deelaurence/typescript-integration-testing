@@ -17,6 +17,8 @@ interface IRawResponsibility extends Document {
 
 
 interface IResume extends Document {
+  timestamps:boolean;
+  completed:boolean;
   jobTitle: string;
   createdBy: mongoose.Types.ObjectId;
   city:string;
@@ -55,6 +57,7 @@ interface IResume extends Document {
     graduationDate: string;
     stillEnrolled: boolean;
   }[];
+
 }
 
 
@@ -90,7 +93,10 @@ const RawResponsibilitySchema = new Schema<IRawResponsibility>({
 
 
 const resumeSchema = new Schema<IResume>({
-  
+  completed:{
+    type:Boolean,
+    default:false,
+  },
   profession: {
     type: String,
   },
@@ -181,7 +187,9 @@ const resumeSchema = new Schema<IResume>({
       },
       stillEnrolled: {
         type: Boolean,
-      }},],
+      }},],},
+    {
+    timestamps: true
 });
 
 

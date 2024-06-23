@@ -69,7 +69,7 @@ Content-Type: application/json
 
 POST http://localhost:3000/resume/header
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxOTA2MTk2N30.eP6-bb_jz63PjVBxN2SNkF7namlwhEoT1wRerT3OBPc
 
 {   
     "lastName":"Alo",
@@ -95,7 +95,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 {
       "jobTitle": "Product Designer",
-      "resumeId":"66489cd996c6126d3a5affb5",
+      "resumeId":"6676c3907144071f19a1b433",
       "company": "Tech Inc",
       "country": "USA",
       "city": "New York",
