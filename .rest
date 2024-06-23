@@ -69,14 +69,14 @@ Content-Type: application/json
 
 POST http://localhost:3000/resume/header
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxOTA2MTk2N30.eP6-bb_jz63PjVBxN2SNkF7namlwhEoT1wRerT3OBPc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxOTEzNTc1NX0.q3_jPS_xR7bLEXciXU_GMQC4oZXkDzwGtzG_JkulQbk
 
 {   
     "lastName":"Alo",
     "firstName":"Odunayo",
     "city":"Los angeles",
     "country":"Nigeria",
-    "profession":"Frontend Developer",
+    "profession":"frontend developer",
     "address":"tocs",
     "phoneNumber":9084278347,
     "publicEmail":"deverenceconnect@gmail.com"
@@ -91,12 +91,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/experiences
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxOTEzNTc1NX0.q3_jPS_xR7bLEXciXU_GMQC4oZXkDzwGtzG_JkulQbk
 
 {
-      "jobTitle": "Product Designer",
-      "resumeId":"6676c3907144071f19a1b433",
-      "company": "Tech Inc",
+      "jobTitle": "frontend developer",
+      "resumeId":"6677ee4c437d31f34f9b2299",
+      "company": "updated-Tec Inc",
       "country": "USA",
       "city": "New York",
       "startDate": "2022-01-01",

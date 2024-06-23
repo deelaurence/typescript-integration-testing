@@ -82,8 +82,19 @@ const experienceSection = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const profession = resume.profession;
         const responsiblitiesRecommendations = yield (0, prompt_1.recommendResponsibilities)(profession, company, jobTitle, city, country);
         if (resume.jobExperiences.length) {
+            // Try to update an existing job experience
+            const tempUpdatedResume = yield resume_1.Resume.findOneAndUpdate({ _id: resumeId, 'jobExperiences.jobTitle': jobTitle }, {
+                $set: {
+                    'jobExperiences.$.company': company,
+                    'jobExperiences.$.city': city,
+                    'jobExperiences.$.country': country,
+                    'jobExperiences.$.startDate': startDate,
+                    'jobExperiences.$.endDate': endDate,
+                    'jobExperiences.$.currentlyWorking': currentlyWorking,
+                },
+            }, { new: true });
             // Respond with the saved resume
-            res.status(201).json((0, customResponse_1.successResponse)({ resume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Dev_Mode_Preventing_Duplicates`));
+            res.status(201).json((0, customResponse_1.successResponse)({ tempUpdatedResume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Dev_Mode_Preventing_Duplicates`));
             return;
         }
         // push experience into the experiences array
