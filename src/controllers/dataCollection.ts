@@ -138,7 +138,7 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
             );
                   // Respond with the saved resume
           res.status(201).json(successResponse(
-            {tempUpdatedResume,responsiblitiesRecommendations},
+            {resume:tempUpdatedResume,responsiblitiesRecommendations},
             StatusCodes.CREATED,
             `Dev_Mode_Preventing_Duplicates`
           ));

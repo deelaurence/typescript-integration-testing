@@ -26,27 +26,32 @@ const headerSection = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const { lastName, firstName, city, profession, address, country, phoneNumber, publicEmail, } = req.body;
         const userId = (_a = req === null || req === void 0 ? void 0 : req.decoded) === null || _a === void 0 ? void 0 : _a.id;
-        let isFirstResume = true;
+        let hasUncompletedResume = false;
         const user = yield user_1.BaseUser.findById(userId);
         if (!user) {
             throw new customErrors_1.NotFound("User does not exist");
         }
         if (user.publicEmail) {
             //user has generated a resume before
-            isFirstResume = false;
+            hasUncompletedResume = true;
         }
         //1 if user is generating resume for the first time
         //update user header details
         //2 Add an empty array in resumes field, would push the resume ID later
-        isFirstResume ? yield user_1.BaseUser.findByIdAndUpdate(userId, { lastName,
-            country,
-            firstName,
-            city,
-            address,
-            phoneNumber,
-            publicEmail,
-            resumes: [],
-        }) : null;
+        if (hasUncompletedResume) {
+            yield user_1.BaseUser.findByIdAndUpdate(userId, { lastName,
+                country,
+                firstName,
+                city,
+                address,
+                phoneNumber,
+                publicEmail,
+                resumes: [],
+            });
+        }
+        else {
+            return;
+        }
         const newResume = new resume_1.Resume({
             firstName,
             lastName,
