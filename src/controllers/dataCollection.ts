@@ -123,7 +123,7 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
     if(resume.jobExperiences.length){
         // Try to update an existing job experience
             const tempUpdatedResume = await Resume.findOneAndUpdate(
-              { _id: resumeId, 'jobExperiences.jobTitle': jobTitle },
+              { _id: resumeId },
               {
                 $set: {
                   'jobExperiences.$.company': company,
@@ -138,7 +138,7 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
             );
                   // Respond with the saved resume
           res.status(201).json(successResponse(
-            {tempUpdatedResume,responsiblitiesRecommendations},
+            {resume:tempUpdatedResume,responsiblitiesRecommendations},
             StatusCodes.CREATED,
             `Dev_Mode_Preventing_Duplicates`
           ));
