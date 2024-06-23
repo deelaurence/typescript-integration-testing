@@ -5,8 +5,8 @@ import { successResponse } from '../utils/customResponse';
 import { BadRequest, NotFound, Unauthenticated, InternalServerError, Conflict } from "../errors/customErrors";
 import {BaseUser, IUser} from '../models/user';
 import { IRawResponsibility, RawResponsibility, Responsibility,IResponsibility } from '../models/resume';
-import { recommendResponsibilities } from '../utils/prompt';
-
+import { recommendResponsibilities } from '../utils/prompt'
+import { liberalPrompt } from '../utils/prompt';
 //header section to add header
 // 1 To user object if not already present
 // 2 To resume object
@@ -159,7 +159,9 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
     
     await rawResponsibity.save()
 
-    
+
+
+
 
     // Respond with the saved resume
     res.status(201).json(successResponse(
@@ -272,4 +274,29 @@ const educationSection = async (req: Request, res: Response): Promise<void> => {
 };
 
 
-export { experienceSection, headerSection, responsibilitiesSection, educationSection };
+
+const liberalPrompting = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      prompt
+    } = req.body;
+
+    
+    const result = await liberalPrompt(prompt)
+
+    // Respond with the saved resume
+    res.status(201).json(successResponse(
+        result,
+        StatusCodes.CREATED,
+        `Your results for the prompt [${prompt}]`
+      ));
+  } catch (error:any) {
+    // Handle errors
+    console.error(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json(new InternalServerError(error.message));
+  }
+};
+
+
+export { liberalPrompting, experienceSection, headerSection, responsibilitiesSection, educationSection };

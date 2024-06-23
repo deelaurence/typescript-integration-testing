@@ -35,3 +35,22 @@ return actionsWithoutNumbering;
 
 }
 
+
+
+export async function liberalPrompt(
+  prompt:string,
+) {
+// For text-only input, use the gemini-pro model
+const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+
+const result = await model.generateContent(prompt);
+const response = result.response;
+const text = response.text();
+//   console.log(actionsWithoutNumbering);
+return text;
+
+}
+
+
+

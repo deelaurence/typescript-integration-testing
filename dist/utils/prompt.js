@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.recommendResponsibilities = void 0;
+exports.liberalPrompt = exports.recommendResponsibilities = void 0;
 // const { GoogleGenerativeAI } = require("@google/generative-ai");
 const generative_ai_1 = require("@google/generative-ai");
 const genAI = new generative_ai_1.GoogleGenerativeAI('AIzaSyBCu7CMAnDnyZAkqtkdbvog0LHsJEUc17U');
@@ -35,3 +35,15 @@ function recommendResponsibilities(profession, company, jobTitle, city, country)
     });
 }
 exports.recommendResponsibilities = recommendResponsibilities;
+function liberalPrompt(prompt) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // For text-only input, use the gemini-pro model
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const result = yield model.generateContent(prompt);
+        const response = result.response;
+        const text = response.text();
+        //   console.log(actionsWithoutNumbering);
+        return text;
+    });
+}
+exports.liberalPrompt = liberalPrompt;

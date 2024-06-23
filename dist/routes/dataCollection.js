@@ -12,4 +12,5 @@ router.post('/header', dataCollection_1.headerSection);
 router.post('/experiences', dataCollection_1.experienceSection);
 router.post('/responsibilities', dataCollection_1.responsibilitiesSection);
 router.post('/education', dataCollection_1.educationSection);
+router.post('/liberal', dataCollection_1.liberalPrompting);
 exports.default = router;
