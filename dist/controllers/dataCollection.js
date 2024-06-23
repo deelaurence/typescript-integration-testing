@@ -83,7 +83,7 @@ const experienceSection = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const responsiblitiesRecommendations = yield (0, prompt_1.recommendResponsibilities)(profession, company, jobTitle, city, country);
         if (resume.jobExperiences.length) {
             // Try to update an existing job experience
-            const tempUpdatedResume = yield resume_1.Resume.findOneAndUpdate({ _id: resumeId, 'jobExperiences.jobTitle': jobTitle }, {
+            const tempUpdatedResume = yield resume_1.Resume.findOneAndUpdate({ _id: resumeId }, {
                 $set: {
                     'jobExperiences.$.company': company,
                     'jobExperiences.$.city': city,
