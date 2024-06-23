@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = void 0;
+exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = exports.liberalPrompting = void 0;
 const resume_1 = require("../models/resume");
 const http_status_codes_1 = require("http-status-codes");
 const customResponse_1 = require("../utils/customResponse");
@@ -17,6 +17,7 @@ const customErrors_1 = require("../errors/customErrors");
 const user_1 = require("../models/user");
 const resume_2 = require("../models/resume");
 const prompt_1 = require("../utils/prompt");
+const prompt_2 = require("../utils/prompt");
 //header section to add header
 // 1 To user object if not already present
 // 2 To resume object
@@ -102,7 +103,7 @@ const experienceSection = (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
         yield rawResponsibity.save();
         // Respond with the saved resume
-        res.status(201).json((0, customResponse_1.successResponse)({ updatedResume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Setting up nicely, now add the responsibilities you carried out at ${company}`));
+        res.status(201).json((0, customResponse_1.successResponse)({ resume: updatedResume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Setting up nicely, now add the responsibilities you carried out at ${company}`));
     }
     catch (error) {
         // Handle errors
@@ -172,3 +173,18 @@ const educationSection = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.educationSection = educationSection;
+const liberalPrompting = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { prompt } = req.body;
+        const result = yield (0, prompt_2.liberalPrompt)(prompt);
+        // Respond with the saved resume
+        res.status(201).json((0, customResponse_1.successResponse)(result, http_status_codes_1.StatusCodes.CREATED, `Your results for the prompt [${prompt}]`));
+    }
+    catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(new customErrors_1.InternalServerError(error.message));
+    }
+});
+exports.liberalPrompting = liberalPrompting;
