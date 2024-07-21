@@ -38,19 +38,19 @@ const headerSection = async (req: Request, res: Response): Promise<void> => {
       //1 if user is generating resume for the first time
       //update user header details
       //2 Add an empty array in resumes field, would push the resume ID later
-        isFirstResume?await BaseUser.findByIdAndUpdate(
-          userId,
-          {lastName,
+      if (isFirstResume) {
+        // Perform update operation
+        await BaseUser.findByIdAndUpdate(userId, {
+            lastName,
             country,
             firstName,
             city,
             address,
             phoneNumber,
             publicEmail,
-            resumes:[],
-        },
-        ):null;
-      
+            resumes: [], // Initialize resumes field as an empty array
+          });
+        }
     
         const newResume: IResume = new Resume({
             firstName,

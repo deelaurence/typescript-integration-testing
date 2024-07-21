@@ -38,15 +38,19 @@ const headerSection = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         //1 if user is generating resume for the first time
         //update user header details
         //2 Add an empty array in resumes field, would push the resume ID later
-        isFirstResume ? yield user_1.BaseUser.findByIdAndUpdate(userId, { lastName,
-            country,
-            firstName,
-            city,
-            address,
-            phoneNumber,
-            publicEmail,
-            resumes: [],
-        }) : null;
+        if (isFirstResume) {
+            // Perform update operation
+            yield user_1.BaseUser.findByIdAndUpdate(userId, {
+                lastName,
+                country,
+                firstName,
+                city,
+                address,
+                phoneNumber,
+                publicEmail,
+                resumes: [], // Initialize resumes field as an empty array
+            });
+        }
         const newResume = new resume_1.Resume({
             firstName,
             lastName,
