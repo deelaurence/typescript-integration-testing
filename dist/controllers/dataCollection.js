@@ -26,32 +26,27 @@ const headerSection = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const { lastName, firstName, city, profession, address, country, phoneNumber, publicEmail, } = req.body;
         const userId = (_a = req === null || req === void 0 ? void 0 : req.decoded) === null || _a === void 0 ? void 0 : _a.id;
-        let hasUncompletedResume = false;
+        let isFirstResume = true;
         const user = yield user_1.BaseUser.findById(userId);
         if (!user) {
             throw new customErrors_1.NotFound("User does not exist");
         }
         if (user.publicEmail) {
             //user has generated a resume before
-            hasUncompletedResume = true;
+            isFirstResume = false;
         }
         //1 if user is generating resume for the first time
         //update user header details
         //2 Add an empty array in resumes field, would push the resume ID later
-        if (hasUncompletedResume) {
-            yield user_1.BaseUser.findByIdAndUpdate(userId, { lastName,
-                country,
-                firstName,
-                city,
-                address,
-                phoneNumber,
-                publicEmail,
-                resumes: [],
-            });
-        }
-        else {
-            return;
-        }
+        isFirstResume ? yield user_1.BaseUser.findByIdAndUpdate(userId, { lastName,
+            country,
+            firstName,
+            city,
+            address,
+            phoneNumber,
+            publicEmail,
+            resumes: [],
+        }) : null;
         const newResume = new resume_1.Resume({
             firstName,
             lastName,
@@ -99,7 +94,7 @@ const experienceSection = (req, res) => __awaiter(void 0, void 0, void 0, functi
                 },
             }, { new: true });
             // Respond with the saved resume
-            res.status(201).json((0, customResponse_1.successResponse)({ tempUpdatedResume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Dev_Mode_Preventing_Duplicates`));
+            res.status(201).json((0, customResponse_1.successResponse)({ resume: tempUpdatedResume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Dev_Mode_Preventing_Duplicates`));
             return;
         }
         // push experience into the experiences array

@@ -1,7 +1,11 @@
 // const { GoogleGenerativeAI } = require("@google/generative-ai");
-import { GoogleGenerativeAI } from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI('AIzaSyBCu7CMAnDnyZAkqtkdbvog0LHsJEUc17U');
+require("dotenv").config();
+
 import { Request,Response } from "express";
+import { Secret } from "jsonwebtoken";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+//@ts-ignore
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY);
 
 
 

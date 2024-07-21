@@ -1,7 +1,9 @@
-// const { GoogleGenerativeAI } = require("@google/generative-ai");
+require("dotenv").config();
 import { GoogleGenerativeAI } from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI('AIzaSyBCu7CMAnDnyZAkqtkdbvog0LHsJEUc17U');
 
+const geminiKey=process.env.GEMINI_KEY
+//@ts-ignore
+const genAI = new GoogleGenerativeAI(geminiKey);
 
 // Access your API key as an environment variable (see "Set up your API key" above)
 

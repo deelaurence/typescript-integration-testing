@@ -11,8 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generate = void 0;
 // const { GoogleGenerativeAI } = require("@google/generative-ai");
+require("dotenv").config();
 const generative_ai_1 = require("@google/generative-ai");
-const genAI = new generative_ai_1.GoogleGenerativeAI('AIzaSyBCu7CMAnDnyZAkqtkdbvog0LHsJEUc17U');
+//@ts-ignore
+const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GEMINI_KEY);
 // Access your API key as an environment variable (see "Set up your API key" above)
 function generate(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
