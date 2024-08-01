@@ -104,6 +104,37 @@ export default {
         },
       },
     },
+
+    '/resume/initialize': {
+      post: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        tags: ['Data collection'],
+        description: 'Create an empty resume object',
+        operationId: 'Initializeresume',
+
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/EmptyObject',
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: 'Resume header created',
+          },
+          500: {
+            description: 'Server error',
+          },
+        },
+      },
+    },
     '/resume/header': {
       post: {
         security: [

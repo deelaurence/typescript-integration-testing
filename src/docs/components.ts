@@ -231,23 +231,34 @@ export default {
           },
         },
       },
-      EmailOnly: {
+      Registration: {
         type: 'object',
+        properties: {
+          name: {
+            $ref: '#/components/name',
+          },
+          email: {
+            $ref: '#/components/email',
+          },
+          password: {
+            $ref: '#/components/password',
+          },
+        },
+      },
+      EmailOnly: {
+        type: 'object', 
         properties: {
           email: {
             $ref: '#/components/email',
           }
         },
       },
-  //     "lastName":"Alo",
-  //     "firstName":"Odunayo",
-  //     "city":"Los angeles",
-  //     "country":"Nigeria",
-  //     "profession":"Frontend Developer",
-  //     "address":"tocs",
-  //     "phoneNumber":"09084278347",
-  //     "publicEmail":"deverenceconnect@gmail.com"
-  // }
+      EmptyObject: {
+        type: 'object',
+        properties: {
+          
+        },
+      },
       ResumeHeader: {
         type: 'object',
         properties: {
@@ -274,6 +285,9 @@ export default {
           },
           phoneNumber: {
             $ref: '#/components/phoneNumber',
+          },
+          resumeId: {
+            $ref: '#/components/resumeId',
           },
           publicEmail: {
             $ref: '#/components/publicEmail',
