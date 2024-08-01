@@ -72,7 +72,6 @@ const register = async (req:Request, res:Response) => {
       phonenumber: newUser.phoneNumber,
       gender: newUser.gender,
       country: newUser.country,
-      userToken: token,
     },StatusCodes.CREATED,
     "To continue your registration, click the link sent to your email"
     ));
@@ -224,29 +223,21 @@ const login = async (req:Request, res:Response) => {
     if (!email || !password) {
       throw new BadRequest("email and password cannot be empty");
     }
-    const user = await BaseUser.findOne({ email: email })
-        .populate({path:'resumes.resume'});
     
+    const user = await BaseUser.findOne({ email: email })
+        .populate({path:'resumes'});
 
 
-    // @ts-ignor
-    const mappedResume = user?.resumes.map((single:any)=>{
-      return {
-        _id:single._id,
-        profession:single.profession,
-        createdAt:single.resume.createdAt,
-        updatedAt:single.resume.updatedAt,
-        completed:single.resume.completed
-      }
-    })
-    console.log(mappedResume)
     if (!user) {
       throw new NotFound("Email not registered, Sign up");
     }
+
+
     //if user registerd via google
     if (user.provider == "google") {
       throw new BadRequest("You registered with google sign in");
     }
+    
     const isMatch = await user.comparePassword(password);
     
     if (!isMatch) {
@@ -255,7 +246,9 @@ const login = async (req:Request, res:Response) => {
     if (!user.verified) {
       throw new Unauthenticated("Verify your email");
     }
+    
     const token = user.generateJWT(process.env.JWT_SECRET as Secret);
+    
     return res.status(StatusCodes.OK).
     json(successResponse({
       token: token,
@@ -264,7 +257,7 @@ const login = async (req:Request, res:Response) => {
       phonenumber: user.phoneNumber,
       gender: user.gender,
       country: user.country,
-      resumes: mappedResume
+      resumes: user.resumes
     },StatusCodes.OK,'Welcome back'));
   } catch (error:any) {
     const { message, statusCode } = error;

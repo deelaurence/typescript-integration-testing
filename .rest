@@ -62,9 +62,21 @@ Content-Type: application/json
     "email":"laurie143pelumi@gmail.com",
     "password":"boomshakur"
 }
+
+
+###
+#step zero new resume section
+#create a new resume and send the ID
+POST http://localhost:3000/resume/initialize
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyMjUxMDgxMywiZXhwIjoxNzIyNTEwODczfQ.vvyt-Io8zQ8nzpXDTTzAQH0-g2PC0kJID0kTi_JlMgc
+ 
+{}
+
+###
 ###
 #step one header section
 #firstName, lastName, city, phoneNumber, email, address
+
 
 
 POST http://localhost:3000/resume/header
@@ -76,12 +88,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
     "firstName":"Odunayo",
     "city":"Los angeles",
     "country":"Nigeria",
-    "profession":"frontend developer",
+    "profession":"backend developer-edited",
+    "resumeId":"66ab4898763d4ec1d8d7b66a",
     "address":"tocs",
     "phoneNumber":9084278347,
     "publicEmail":"deverenceconnect@gmail.com"
 }
 
+###
 ###
 
 

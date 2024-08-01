@@ -7,6 +7,52 @@ import {BaseUser, IUser} from '../models/user';
 import { IRawResponsibility, RawResponsibility, Responsibility,IResponsibility } from '../models/resume';
 import { recommendResponsibilities } from '../utils/prompt'
 import { liberalPrompt } from '../utils/prompt';
+
+
+
+//Create new resume and return the ID
+const initializeResume = async(req:Request, res:Response): Promise<void>=>{
+  try {
+    const userId = req?.decoded?.id;
+    
+
+    //Ensure user has only one empty resume instance per time
+    //if there is an empty instance, remove from resume documents
+    const clearedResume: IResume|null = await Resume.findOneAndDelete({
+      createdBy:userId,
+      publicEmail:null
+    })
+
+    //REmove an empty resume instance from resumes field
+    //in user object
+    await BaseUser.findByIdAndUpdate(
+      userId,
+      { $pull: { resumes:clearedResume?._id}} 
+    ) 
+    const newResume: IResume = new Resume({
+      createdBy:userId
+    });
+    await newResume.save()
+
+    //Push resume into resumes field in user object
+    await BaseUser.findByIdAndUpdate(
+      userId,
+      { $push: { resumes:newResume._id}}
+    )
+    res.status(201).json(successResponse(
+      newResume,StatusCodes.CREATED,"This is the starting point, You can now add your header"
+    ));
+  } catch (error:any) {
+     // Handle errors 
+     console.error(error)
+     res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+     .json(new InternalServerError(error.message));
+  }
+}
+
+
+
+
 //header section to add header
 // 1 To user object if not already present
 // 2 To resume object
@@ -18,6 +64,7 @@ const headerSection = async (req: Request, res: Response): Promise<void> => {
         city,
         profession,
         address,
+        resumeId,
         country,
         phoneNumber,
         publicEmail,
@@ -25,56 +72,50 @@ const headerSection = async (req: Request, res: Response): Promise<void> => {
       
       const userId = req?.decoded?.id;
       
-      let isFirstResume = true;
+      
       const user = await BaseUser.findById(userId)
       if(!user){
         throw new NotFound("User does not exist")
       }
-      if(user.publicEmail){
-        //user has generated a resume before
-        isFirstResume=false
+      
+
+
+      if(!resumeId){
+        throw new BadRequest("Supply resume Id")
       }
 
-      //1 if user is generating resume for the first time
-      //update user header details
-      //2 Add an empty array in resumes field, would push the resume ID later
-      if (isFirstResume) {
-        // Perform update operation
-        await BaseUser.findByIdAndUpdate(userId, {
-            lastName,
-            country,
-            firstName,
-            city,
-            address,
-            phoneNumber,
-            publicEmail,
-            resumes: [], // Initialize resumes field as an empty array
-          });
-        }
+
+      //Make sure the user in session owns the resume
+      const userOwnsResume = await BaseUser.findOne({
+        _id: user._id,
+        resumes: { $in: [resumeId] },
+      });
+
+      if(!userOwnsResume){
+        throw new NotFound("User does not have this resume")
+      }
+
+      await BaseUser.findByIdAndUpdate(userId, {
+          lastName,
+          country,
+          firstName,
+          city,
+          address,
+          phoneNumber,
+          publicEmail,
+      });
     
-        const newResume: IResume = new Resume({
-            firstName,
-            lastName,
-            profession,
-            phoneNumber,
-            publicEmail,
-            country,
-            city,
-            createdBy:userId
-          });
+    
+      const savedResume: IResume|null = await Resume.findByIdAndUpdate(resumeId,{
+          firstName,
+          lastName,
+          profession,
+          phoneNumber,
+          publicEmail,
+          country,
+          city,
+      },{new:true});
           
-
-
-          // Save the new resume to the database
-          const savedResume: IResume = await newResume.save();
-          //push resumeId into the user document
-          await BaseUser.findByIdAndUpdate(
-            userId,
-            { $push: { resumes:{profession,resume:savedResume._id}}}
-          )
-
-            
-
 
       res.status(201).json(successResponse(
          savedResume,StatusCodes.CREATED,"Bravo, your header section is completed now proceed to add your experience"
@@ -314,4 +355,4 @@ const liberalPrompting = async (req: Request, res: Response): Promise<void> => {
 };
 
 
-export { liberalPrompting, experienceSection, headerSection, responsibilitiesSection, educationSection };
+export { liberalPrompting, experienceSection, headerSection, responsibilitiesSection, educationSection, initializeResume };

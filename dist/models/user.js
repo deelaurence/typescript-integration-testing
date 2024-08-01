@@ -84,15 +84,10 @@ const userSchema = new mongoose_1.Schema({
         type: Boolean,
         default: false,
     },
-    resumes: [
-        {
-            profession: String,
-            resume: {
-                type: mongoose_1.default.Schema.Types.ObjectId,
-                ref: 'Resume'
-            }
-        }
-    ],
+    resumes: [{
+            type: mongoose_1.default.Schema.Types.ObjectId,
+            ref: 'Resume'
+        }],
     displayName: {
         type: String,
     },
@@ -132,7 +127,7 @@ userSchema.pre('save', function (next) {
     });
 });
 userSchema.methods.generateJWT = function (signature) {
-    return jsonwebtoken_1.default.sign({ id: this._id, name: this.name }, signature);
+    return jsonwebtoken_1.default.sign({ id: this._id, name: this.name }, signature, { expiresIn: '24h' });
 };
 userSchema.methods.comparePassword = function (passwordInput) {
     return __awaiter(this, void 0, void 0, function* () {

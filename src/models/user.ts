@@ -28,7 +28,7 @@ interface IUser extends Document {
   password: string;
   googleId: string;
   canResetPassword:boolean;
-  displayName: string;
+  displayName: string; 
   userId: string;
   resumes: { profession: string; resume: mongoose.Types.ObjectId }[]; 
   provider:string;
@@ -86,15 +86,10 @@ const userSchema = new Schema<IUser>({
       type: Boolean,
       default: false,
     },
-    resumes: [
-      {
-          profession: String,
-          resume: {
-              type: mongoose.Schema.Types.ObjectId,
-              ref: 'Resume' 
-          }
-      }
-    ],
+    resumes: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Resume' 
+    }],
     displayName: {
       type: String,
     },
@@ -136,7 +131,7 @@ userSchema.pre('save', async function (this: IUser, next) {
 });
 
 userSchema.methods.generateJWT = function (this: IUser, signature: string): string {
-  return jwt.sign({ id: this._id, name: this.name }, signature);
+  return jwt.sign({ id: this._id, name: this.name }, signature, { expiresIn: '24h' });
 };
 
 userSchema.methods.comparePassword = async function (

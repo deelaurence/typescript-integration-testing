@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = exports.liberalPrompting = void 0;
+exports.initializeResume = exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = exports.liberalPrompting = void 0;
 const resume_1 = require("../models/resume");
 const http_status_codes_1 = require("http-status-codes");
 const customResponse_1 = require("../utils/customResponse");
@@ -18,40 +18,69 @@ const user_1 = require("../models/user");
 const resume_2 = require("../models/resume");
 const prompt_1 = require("../utils/prompt");
 const prompt_2 = require("../utils/prompt");
+//Create new resume and return the ID
+const initializeResume = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const userId = (_a = req === null || req === void 0 ? void 0 : req.decoded) === null || _a === void 0 ? void 0 : _a.id;
+        //Ensure user has only one empty resume instance per time
+        //if there is an empty instance, remove from resume documents
+        const clearedResume = yield resume_1.Resume.findOneAndDelete({
+            createdBy: userId,
+            publicEmail: null
+        });
+        //REmove an empty resume instance from resumes field
+        //in user object
+        yield user_1.BaseUser.findByIdAndUpdate(userId, { $pull: { resumes: clearedResume === null || clearedResume === void 0 ? void 0 : clearedResume._id } });
+        const newResume = new resume_1.Resume({
+            createdBy: userId
+        });
+        yield newResume.save();
+        //Push resume into resumes field in user object
+        yield user_1.BaseUser.findByIdAndUpdate(userId, { $push: { resumes: newResume._id } });
+        res.status(201).json((0, customResponse_1.successResponse)(newResume, http_status_codes_1.StatusCodes.CREATED, "This is the starting point, You can now add your header"));
+    }
+    catch (error) {
+        // Handle errors 
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(new customErrors_1.InternalServerError(error.message));
+    }
+});
+exports.initializeResume = initializeResume;
 //header section to add header
 // 1 To user object if not already present
 // 2 To resume object
 const headerSection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _b;
     try {
-        const { lastName, firstName, city, profession, address, country, phoneNumber, publicEmail, } = req.body;
-        const userId = (_a = req === null || req === void 0 ? void 0 : req.decoded) === null || _a === void 0 ? void 0 : _a.id;
-        let isFirstResume = true;
+        const { lastName, firstName, city, profession, address, resumeId, country, phoneNumber, publicEmail, } = req.body;
+        const userId = (_b = req === null || req === void 0 ? void 0 : req.decoded) === null || _b === void 0 ? void 0 : _b.id;
         const user = yield user_1.BaseUser.findById(userId);
         if (!user) {
             throw new customErrors_1.NotFound("User does not exist");
         }
-        if (user.publicEmail) {
-            //user has generated a resume before
-            isFirstResume = false;
+        if (!resumeId) {
+            throw new customErrors_1.BadRequest("Supply resume Id");
         }
-        //1 if user is generating resume for the first time
-        //update user header details
-        //2 Add an empty array in resumes field, would push the resume ID later
-        if (isFirstResume) {
-            // Perform update operation
-            yield user_1.BaseUser.findByIdAndUpdate(userId, {
-                lastName,
-                country,
-                firstName,
-                city,
-                address,
-                phoneNumber,
-                publicEmail,
-                resumes: [], // Initialize resumes field as an empty array
-            });
+        //Make sure the user in session owns the resume
+        const userOwnsResume = yield user_1.BaseUser.findOne({
+            _id: user._id,
+            resumes: { $in: [resumeId] },
+        });
+        if (!userOwnsResume) {
+            throw new customErrors_1.NotFound("User does not have this resume");
         }
-        const newResume = new resume_1.Resume({
+        yield user_1.BaseUser.findByIdAndUpdate(userId, {
+            lastName,
+            country,
+            firstName,
+            city,
+            address,
+            phoneNumber,
+            publicEmail,
+        });
+        const savedResume = yield resume_1.Resume.findByIdAndUpdate(resumeId, {
             firstName,
             lastName,
             profession,
@@ -59,12 +88,7 @@ const headerSection = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             publicEmail,
             country,
             city,
-            createdBy: userId
-        });
-        // Save the new resume to the database
-        const savedResume = yield newResume.save();
-        //push resumeId into the user document
-        yield user_1.BaseUser.findByIdAndUpdate(userId, { $push: { resumes: { profession, resume: savedResume._id } } });
+        }, { new: true });
         res.status(201).json((0, customResponse_1.successResponse)(savedResume, http_status_codes_1.StatusCodes.CREATED, "Bravo, your header section is completed now proceed to add your experience"));
     }
     catch (error) {

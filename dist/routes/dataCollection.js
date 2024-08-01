@@ -8,6 +8,7 @@ const dataCollection_1 = require("../controllers/dataCollection");
 const authentication_1 = __importDefault(require("../middleware/authentication"));
 const router = express_1.default.Router();
 router.use(authentication_1.default);
+router.post('/initialize', dataCollection_1.initializeResume);
 router.post('/header', dataCollection_1.headerSection);
 router.post('/experiences', dataCollection_1.experienceSection);
 router.post('/responsibilities', dataCollection_1.responsibilitiesSection);

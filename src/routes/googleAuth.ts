@@ -8,7 +8,17 @@ import cryptoJs from 'crypto-js';
 import passport from "passport";
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 import { BaseUser } from "../models/user";
+import { IUser } from "../models/user";
 import { ServerResponse } from "http";
+
+interface User {
+  email: string;
+  // Add other properties as needed
+}
+
+interface AuthenticatedRequest extends Request {
+  user: User;
+}
 
 //The google sign in logic is as atraightforward as it can be
 //✅situation one1️⃣: A new user Frank signs up with google,
@@ -98,7 +108,7 @@ passport.use(
 
 //Configure passport serialization and deserialization
 //serialize stores unique user info on the sessions (user._id)
-passport.serializeUser(function (user, done) {
+passport.serializeUser(function (user:any, done) {
   done(null, user!._id);
 
 });
@@ -134,7 +144,7 @@ route.get(
 );
 
 //Logic for returning users sign-in
-route.get("/success", async (req, res) => {
+route.get("/success", async (req:any, res) => {
     if (req.isAuthenticated()) {
     console.log(req.user!.email);
     const user = await BaseUser.findOne({ email: req.user.email });

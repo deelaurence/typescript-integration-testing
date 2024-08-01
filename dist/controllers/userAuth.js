@@ -62,7 +62,6 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             phonenumber: newUser.phoneNumber,
             gender: newUser.gender,
             country: newUser.country,
-            userToken: token,
         }, http_status_codes_1.StatusCodes.CREATED, "To continue your registration, click the link sent to your email"));
     }
     catch (error) {
@@ -188,18 +187,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             throw new customErrors_1.BadRequest("email and password cannot be empty");
         }
         const user = yield user_1.BaseUser.findOne({ email: email })
-            .populate({ path: 'resumes.resume' });
-        // @ts-ignor
-        const mappedResume = user === null || user === void 0 ? void 0 : user.resumes.map((single) => {
-            return {
-                _id: single._id,
-                profession: single.profession,
-                createdAt: single.resume.createdAt,
-                updatedAt: single.resume.updatedAt,
-                completed: single.resume.completed
-            };
-        });
-        console.log(mappedResume);
+            .populate({ path: 'resumes' });
         if (!user) {
             throw new customErrors_1.NotFound("Email not registered, Sign up");
         }
@@ -223,7 +211,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             phonenumber: user.phoneNumber,
             gender: user.gender,
             country: user.country,
-            resumes: mappedResume
+            resumes: user.resumes
         }, http_status_codes_1.StatusCodes.OK, 'Welcome back'));
     }
     catch (error) {
