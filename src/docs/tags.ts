@@ -3,6 +3,7 @@ export default {
     { name: 'Onboarding', description: 'Registration and login with user email' },
     { name: 'Forgot password', description: 'Registered users resets thier password by going through a confirmation link sent to their mail' },
     { name: 'Data collection', description: 'Collect resume data' },
+    { name: 'User Profile', description: 'Fetching and Updating user profile' },
     // { name: 'Admin', description: 'Admin Endpoints' },
     // { name: 'Course', description: 'course section' },
     // { name: 'Withdrawal', description: 'Referees can process thier withdrawals' },

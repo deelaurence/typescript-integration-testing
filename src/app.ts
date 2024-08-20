@@ -9,6 +9,7 @@ import resumeRoutes from './routes/dataCollection'
 import { Secret } from 'jsonwebtoken';
 import  dotenv from 'dotenv'
 import passport from 'passport';
+import profileRoutes from './routes/userProfile'
 import googleRoutes from './routes/googleAuth'
 import morgan from 'morgan'
 import swaggerUI from 'swagger-ui-express'
@@ -59,6 +60,7 @@ app.use("/", googleRoutes);
 app.use('/auth', authRoutes);
 app.use('/prompt', airoutes)
 app.use('/resume', resumeRoutes)
+app.use('/profile', profileRoutes)
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(require('./docs')));
 app.set('trust proxy',1);  
 app.use("*",(req,res)=>{

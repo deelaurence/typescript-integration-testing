@@ -12,6 +12,7 @@ const swaggerDocument = require('./swagger-output.json');
 const dataCollection_1 = __importDefault(require("./routes/dataCollection"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const passport_1 = __importDefault(require("passport"));
+const userProfile_1 = __importDefault(require("./routes/userProfile"));
 const googleAuth_1 = __importDefault(require("./routes/googleAuth"));
 const morgan_1 = __importDefault(require("morgan"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
@@ -44,6 +45,7 @@ app.use("/", googleAuth_1.default);
 app.use('/auth', auth_1.default);
 app.use('/prompt', Ai_1.default);
 app.use('/resume', dataCollection_1.default);
+app.use('/profile', userProfile_1.default);
 app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(require('./docs')));
 app.set('trust proxy', 1);
 app.use("*", (req, res) => {

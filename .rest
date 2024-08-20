@@ -42,6 +42,13 @@ Content-Type: application/json
 {
     "prompt":"I am writing a resume send me 10 responsibities of a pastor and use the first person speaking in a javascript array without linebreaks"
 }
+###
+GET http://localhost:3000/profile/fetch
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNDE0NTY5NywiZXhwIjoxNzI0MjMyMDk3fQ.Hl19AohWDcCcaZvFPLZLhrI5T4agndjJoX-FlQUNkPo
+ 
+
+
+
 
 ###
 POST http://localhost:3000/auth/update-password

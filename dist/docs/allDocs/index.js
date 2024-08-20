@@ -258,6 +258,26 @@ exports.default = {
                 },
             },
         },
+        '/profile/fetch': {
+            get: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
+                tags: ['User Profile'],
+                description: 'get user profile',
+                operationId: 'get user state',
+                responses: {
+                    200: {
+                        description: 'User profile fetched',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
         '/metrics/loguser': {
             get: {
                 tags: ['Metrics'],
