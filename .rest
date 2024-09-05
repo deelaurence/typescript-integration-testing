@@ -44,7 +44,7 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:3000/profile/fetch
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNDE0NTY5NywiZXhwIjoxNzI0MjMyMDk3fQ.Hl19AohWDcCcaZvFPLZLhrI5T4agndjJoX-FlQUNkPo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNTU1MDc3NCwiZXhwIjoxNzI1NjM3MTc0fQ.iU-xlqM2z90rT1r4V4R3GeyNYppOPOErzv83EDgIHZ4
  
 
 
@@ -112,11 +112,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/experiences
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxOTEzNTc1NX0.q3_jPS_xR7bLEXciXU_GMQC4oZXkDzwGtzG_JkulQbk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNTU0ODk0MiwiZXhwIjoxNzI1NjM1MzQyfQ.uEGZBQ6o7i3KrkxbPAU1aibFgAqpHDCaf1Suv2eT4fg
 
 {
       "jobTitle": "frontend developer",
-      "resumeId":"6677ee4c437d31f34f9b2299",
+      "resumeId":"66ab4898763d4ec1d8d7b66a",
       "company": "updated-Tec Inc",
       "country": "USA",
       "city": "New York",
@@ -133,7 +133,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/experiences
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNTU0ODk0MiwiZXhwIjoxNzI1NjM1MzQyfQ.uEGZBQ6o7i3KrkxbPAU1aibFgAqpHDCaf1Suv2eT4fg
 
 {
       "jobTitle": "Dev Ops Engineer",
@@ -160,11 +160,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/responsibilities
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNTU0ODk0MiwiZXhwIjoxNzI1NjM1MzQyfQ.uEGZBQ6o7i3KrkxbPAU1aibFgAqpHDCaf1Suv2eT4fg
 
 {      
-      "resumeId":"66489cd996c6126d3a5affb5",
-      "jobExperienceId":"66489db196c6126d3a5affbb",
+      "resumeId":"66ab4898763d4ec1d8d7b66a",
+      "jobExperienceId":"66cdc555df9d51e56d2914cb",
       "userResponsibilities":[
       "Conducted user research studies to gather insights and understand user needs.",
       "Created wireframes, prototypes, and mockups to demonstrate design concepts and functionality.",

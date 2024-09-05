@@ -19,7 +19,12 @@ const getUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function*
     var _a;
     try {
         const userId = (_a = req === null || req === void 0 ? void 0 : req.decoded) === null || _a === void 0 ? void 0 : _a.id;
-        const userProfile = yield user_1.BaseUser.findById(userId).populate({ path: 'resumes' });
+        const userProfile = yield user_1.BaseUser.findById(userId).populate({
+            path: 'resumes', // Populate resumes
+            populate: {
+                path: 'jobExperiences.responsibilities', // Nested population of responsibilities within jobExperiences
+            }
+        });
         //Push resume into resumes field in user object
         res.status(201).json((0, customResponse_1.successResponse)(userProfile, http_status_codes_1.StatusCodes.CREATED, "This is the updated user profile"));
     }

@@ -154,39 +154,32 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
         profession,company,jobTitle,city,country
     )
 
-    
 
 
-
-
-
-
-    if(resume.jobExperiences.length){
-        // Try to update an existing job experience
-            const tempUpdatedResume = await Resume.findOneAndUpdate(
-              { _id: resumeId },
-              {
-                $set: {
-                  'jobExperiences.$.company': company,
-                  'jobExperiences.$.city': city,
-                  'jobExperiences.$.country': country,
-                  'jobExperiences.$.startDate': startDate,
-                  'jobExperiences.$.endDate': endDate,
-                  'jobExperiences.$.currentlyWorking': currentlyWorking,
-                },
-              },
-              { new: true }
-            );
-                  // Respond with the saved resume
-          res.status(201).json(successResponse(
-            {resume:tempUpdatedResume,responsiblitiesRecommendations},
-            StatusCodes.CREATED,
-            `Dev_Mode_Preventing_Duplicates`
-          ));
-      return
-    }
-
-
+    // if(resume.jobExperiences.length){
+    //     // Try to update an existing job experience
+    //         const tempUpdatedResume = await Resume.findOneAndUpdate(
+    //           { _id: resumeId },
+    //           {
+    //             $set: {
+    //               'jobExperiences.$.company': company,
+    //               'jobExperiences.$.city': city,
+    //               'jobExperiences.$.country': country,
+    //               'jobExperiences.$.startDate': startDate,
+    //               'jobExperiences.$.endDate': endDate,
+    //               'jobExperiences.$.currentlyWorking': currentlyWorking,
+    //             },
+    //           },
+    //           { new: true }
+    //         );
+    //               // Respond with the saved resume
+    //       res.status(201).json(successResponse(
+    //         {resume:tempUpdatedResume,responsiblitiesRecommendations},
+    //         StatusCodes.CREATED,
+    //         `Dev_Mode_Preventing_Duplicates`
+    //       ));
+    //   return
+    // }
 
 
 

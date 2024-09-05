@@ -58,11 +58,11 @@ app.use(passport.session());
 app.use(bodyParser.json());
 app.use("/", googleRoutes);
 app.use('/auth', authRoutes);
-app.use('/prompt', airoutes)
+app.use('/prompt', airoutes) 
 app.use('/resume', resumeRoutes)
 app.use('/profile', profileRoutes)
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(require('./docs')));
-app.set('trust proxy',1);  
+app.set('trust proxy',1);   
 app.use("*",(req,res)=>{
   console.log("Route not found")
   res.status(404).json(new NotFound("Requested resource not found"))

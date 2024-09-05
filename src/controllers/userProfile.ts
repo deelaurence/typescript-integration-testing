@@ -14,7 +14,12 @@ const getUserProfile = async(req:Request, res:Response): Promise<void>=>{
     
     const userProfile=await BaseUser.findById(
       userId 
-    ).populate({path:'resumes'}) 
+    ) .populate({
+      path: 'resumes', // Populate resumes
+      populate: {
+        path: 'jobExperiences.responsibilities', // Nested population of responsibilities within jobExperiences
+      }
+    });
     
     //Push resume into resumes field in user object
     res.status(201).json(successResponse(
