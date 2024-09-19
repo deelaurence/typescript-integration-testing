@@ -1,3 +1,5 @@
+@session=token goes here
+
 POST http://localhost:3000/auth/register
 # POST https://typescript-integration-testing.onrender.com/auth/register
 Content-Type: application/json
@@ -12,9 +14,6 @@ Content-Type: application/json
 
 
 
-
-
-
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
@@ -23,6 +22,7 @@ Content-Type: application/json
     "name":"yoder nop",
     "password":"boomshakur"
 }
+
 ###
 
 POST http://localhost:3000/auth/verify-email-password-reset
@@ -44,7 +44,7 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:3000/profile/fetch
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNjc3NzcyMSwiZXhwIjoxNzI2ODY0MTIxfQ.VgrtGUcCCfSAYVzlsr_898Fkmvc78tykLgsGmwHoZtw
+Authorization: Bearer {{session}}
  
 
 
@@ -75,7 +75,6 @@ Content-Type: application/json
 #step zero new resume section
 #create a new resume and send the ID
 POST http://localhost:3000/resume/initialize
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyMjUxMDgxMywiZXhwIjoxNzIyNTEwODczfQ.vvyt-Io8zQ8nzpXDTTzAQH0-g2PC0kJID0kTi_JlMgc
  
 {}
 
@@ -88,7 +87,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/header
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxOTEzNTc1NX0.q3_jPS_xR7bLEXciXU_GMQC4oZXkDzwGtzG_JkulQbk
 
 {   
     "lastName":"Alo",
@@ -112,7 +110,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/experiences
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNjc3NzcyMSwiZXhwIjoxNzI2ODY0MTIxfQ.VgrtGUcCCfSAYVzlsr_898Fkmvc78tykLgsGmwHoZtw
 
 {
       "jobTitle": "Quality Assurance Tester",
@@ -133,7 +130,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/experiences
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNTU0ODk0MiwiZXhwIjoxNzI1NjM1MzQyfQ.uEGZBQ6o7i3KrkxbPAU1aibFgAqpHDCaf1Suv2eT4fg
 
 {
       "jobTitle": "Dev Ops Engineer",
@@ -160,7 +156,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/responsibilities
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNjc3NzcyMSwiZXhwIjoxNzI2ODY0MTIxfQ.VgrtGUcCCfSAYVzlsr_898Fkmvc78tykLgsGmwHoZtw
 
 {      
       "resumeId":"66ab4898763d4ec1d8d7b66a",
@@ -183,7 +178,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/responsibilities
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
 
 {      
       "resumeId":"66463ff1a56a75afd711dcd4",
@@ -206,7 +200,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/education
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNjc3NzcyMSwiZXhwIjoxNzI2ODY0MTIxfQ.VgrtGUcCCfSAYVzlsr_898Fkmvc78tykLgsGmwHoZtw
 
 {
       "resumeId":"66ab4898763d4ec1d8d7b66a",
@@ -225,7 +218,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/liberal
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
 
 {      
       
