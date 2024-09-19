@@ -31,7 +31,11 @@ export async function recommendResponsibilities(
   const actionsArray = text.split('\n');
 
   console.log(prompt);
-  const actionsWithoutNumbering = actionsArray.map(action => action.replace(/^\d+\.\s/, ''));
+  let actionsWithoutNumbering = actionsArray.map(action => action.replace(/^\d+\.\s/, ''));
+  // remove asteriks
+  actionsWithoutNumbering.forEach((action) =>{
+    action.replace("*",'')
+  }) 
 //   console.log(actionsWithoutNumbering);
 return actionsWithoutNumbering;
 

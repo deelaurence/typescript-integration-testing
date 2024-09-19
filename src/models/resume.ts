@@ -44,6 +44,7 @@ interface IResume extends Document {
     endDate: string;
     currentlyWorking: boolean;
     responsibilities: mongoose.Types.ObjectId;
+    rawResponsibilities: mongoose.Types.ObjectId;
   }[];
 
 
@@ -158,6 +159,10 @@ const resumeSchema = new Schema<IResume>({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Responsibility',
       },
+      rawResponsibilities: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'RawResponsibility',
+      },
     },
   ],
   education: [
@@ -168,19 +173,15 @@ const resumeSchema = new Schema<IResume>({
       },
       schoolLocation: {
         type: String,
-        required: true,
       },
       degreeType: {
         type: String,
-        required: true,
       },
       studyField: {
         type: String,
-        required: true,
       },
       startDate: {
         type: String,
-        required: true,
       },
       graduationDate:{
         type:String

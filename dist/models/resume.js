@@ -112,6 +112,10 @@ const resumeSchema = new mongoose_1.Schema({
                 type: mongoose_1.default.Schema.Types.ObjectId,
                 ref: 'Responsibility',
             },
+            rawResponsibilities: {
+                type: mongoose_1.default.Schema.Types.ObjectId,
+                ref: 'RawResponsibility',
+            },
         },
     ],
     education: [
@@ -122,19 +126,15 @@ const resumeSchema = new mongoose_1.Schema({
             },
             schoolLocation: {
                 type: String,
-                required: true,
             },
             degreeType: {
                 type: String,
-                required: true,
             },
             studyField: {
                 type: String,
-                required: true,
             },
             startDate: {
                 type: String,
-                required: true,
             },
             graduationDate: {
                 type: String

@@ -133,6 +133,15 @@ const experienceSection = (req, res) => __awaiter(void 0, void 0, void 0, functi
         //       ));
         //   return
         // }
+        //update raw responsibilities 
+        const rawResponsibility = new resume_2.RawResponsibility({
+            jobTitle,
+            responsibilities: responsiblitiesRecommendations,
+        });
+        yield rawResponsibility.save();
+        //save raw responsibilities to experience
+        // jobExperience.rawResponsibilities=rawResponsibility._id
+        console.log(rawResponsibility._id);
         // push experience into the experiences array
         const updatedResume = yield resume_1.Resume.findByIdAndUpdate(resumeId, { $push: { jobExperiences: {
                     jobTitle,
@@ -141,14 +150,9 @@ const experienceSection = (req, res) => __awaiter(void 0, void 0, void 0, functi
                     country,
                     startDate,
                     endDate,
-                    currentlyWorking
+                    currentlyWorking,
+                    rawResponsibilities: rawResponsibility._id
                 } } }, { new: true });
-        //update raw responsibilities 
-        const rawResponsibity = new resume_2.RawResponsibility({
-            jobTitle,
-            responsibilities: responsiblitiesRecommendations,
-        });
-        yield rawResponsibity.save();
         // Respond with the saved resume
         res.status(201).json((0, customResponse_1.successResponse)({ resume: updatedResume, responsiblitiesRecommendations }, http_status_codes_1.StatusCodes.CREATED, `Setting up nicely, now add the responsibilities you carried out at ${company}`));
     }

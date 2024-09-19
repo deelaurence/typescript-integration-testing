@@ -183,8 +183,18 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
 
 
 
+    
+    //update raw responsibilities 
+    const rawResponsibility: IRawResponsibility = new RawResponsibility({
+      jobTitle,
+      responsibilities:responsiblitiesRecommendations,
+    });
+  
+    await rawResponsibility.save()
 
-
+    //save raw responsibilities to experience
+    // jobExperience.rawResponsibilities=rawResponsibility._id
+    console.log(rawResponsibility._id);
     // push experience into the experiences array
     const updatedResume:any =await Resume.findByIdAndUpdate(
       resumeId,
@@ -195,20 +205,12 @@ const experienceSection = async (req: Request, res: Response): Promise<void> => 
         country,
         startDate,
         endDate,
-        currentlyWorking
+        currentlyWorking,
+        rawResponsibilities:rawResponsibility._id
       } } },
       { new: true } 
     )
     
-    //update raw responsibilities 
-    const rawResponsibity: IRawResponsibility = new RawResponsibility({
-        jobTitle,
-        responsibilities:responsiblitiesRecommendations,
-      });
-    
-    await rawResponsibity.save()
-
-
 
 
 

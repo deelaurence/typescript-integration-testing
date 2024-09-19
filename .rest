@@ -44,7 +44,7 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:3000/profile/fetch
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNTU1MDc3NCwiZXhwIjoxNzI1NjM3MTc0fQ.iU-xlqM2z90rT1r4V4R3GeyNYppOPOErzv83EDgIHZ4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNjc3NzcyMSwiZXhwIjoxNzI2ODY0MTIxfQ.VgrtGUcCCfSAYVzlsr_898Fkmvc78tykLgsGmwHoZtw
  
 
 
@@ -112,10 +112,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/experiences
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNTU0ODk0MiwiZXhwIjoxNzI1NjM1MzQyfQ.uEGZBQ6o7i3KrkxbPAU1aibFgAqpHDCaf1Suv2eT4fg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNjc3NzcyMSwiZXhwIjoxNzI2ODY0MTIxfQ.VgrtGUcCCfSAYVzlsr_898Fkmvc78tykLgsGmwHoZtw
 
 {
-      "jobTitle": "frontend developer",
+      "jobTitle": "Quality Assurance Tester",
       "resumeId":"66ab4898763d4ec1d8d7b66a",
       "company": "updated-Tec Inc",
       "country": "USA",
@@ -160,11 +160,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/responsibilities
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNTU0ODk0MiwiZXhwIjoxNzI1NjM1MzQyfQ.uEGZBQ6o7i3KrkxbPAU1aibFgAqpHDCaf1Suv2eT4fg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNjc3NzcyMSwiZXhwIjoxNzI2ODY0MTIxfQ.VgrtGUcCCfSAYVzlsr_898Fkmvc78tykLgsGmwHoZtw
 
 {      
       "resumeId":"66ab4898763d4ec1d8d7b66a",
-      "jobExperienceId":"66cdc555df9d51e56d2914cb",
+      "jobExperienceId":"66ec90d97e8367502e1fd3f9",
       "userResponsibilities":[
       "Conducted user research studies to gather insights and understand user needs.",
       "Created wireframes, prototypes, and mockups to demonstrate design concepts and functionality.",
@@ -206,10 +206,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5Z
 
 POST http://localhost:3000/resume/education
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcxNTcwNjg3OH0.Kc50WCtY7984MLdEOjqcuw_ZPwPBR3PJgufyAr2tmyc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTcyNjc3NzcyMSwiZXhwIjoxNzI2ODY0MTIxfQ.VgrtGUcCCfSAYVzlsr_898Fkmvc78tykLgsGmwHoZtw
 
 {
-      "resumeId":"66489cd996c6126d3a5affb5",
+      "resumeId":"66ab4898763d4ec1d8d7b66a",
       "schoolName": "ABC School",
       "schoolLocation": "Nigeria",
       "studyField": "Pharmacy",
