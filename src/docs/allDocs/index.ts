@@ -379,6 +379,66 @@ export default {
         },
       },
     },
+    '/resume/get/career-summary': {
+      post: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        tags: ['Data collection'],
+        description: 'Career summary recommendation',
+        operationId: 'career summary recommendation',
+
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/ResumeIdOnly',
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: 'Resume skills update',
+          },
+          500: {
+            description: 'Server error',
+          },
+        },
+      },
+    },
+    '/resume/career-summary': {
+      post: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        tags: ['Data collection'],
+        description: 'Career summary',
+        operationId: 'career summary adding',
+
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/CareerSummarySection',
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: 'Resume skills update',
+          },
+          500: {
+            description: 'Server error',
+          },
+        },
+      },
+    },
 
     '/auth/google/onboard': {
       get: {
