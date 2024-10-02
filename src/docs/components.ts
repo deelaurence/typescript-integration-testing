@@ -176,7 +176,16 @@ export default {
       description:"an array of strings containing responsibilities",
       example:['responsibility 1', 'responsibility 2']
     },
-    
+    toolsAndSkillsPayload:{
+      type:'array',
+      description:"an array of strings containing tools or skills",
+      example:['skill', 'skill 1']
+    },
+    careerSummary:{
+      type:'string',
+      description:'Career Summary',
+      example:"Accomplished Backend Developer with 2 years of experience, exceptional security expertise and proficiency in various security tools."
+    },
     
       schoolName: {
         type: 'string',
@@ -369,7 +378,40 @@ export default {
                 $ref: '#/components/stillEnrolled',
             },
         },
-      }, 
+      },
+      
+      
+
+      ResumeIdOnly: {
+        type: 'object',
+        properties: {
+          resumeId: {
+            $ref: '#/components/resumeId',
+          }
+        },
+      },
+      SkillsAndToolsSection: {
+        type: 'object',
+        properties: {
+          resumeId: {
+            $ref: '#/components/resumeId',
+          },
+          payload: {
+            $ref: '#/components/toolsAndSkillsPayload',
+          }
+        },
+      },
+      CareerSummarySection: {
+        type: 'object',
+        properties: {
+          resumeId: {
+            $ref: '#/components/resumeId',
+          },
+          careerSummary: {
+            $ref: '#/components/careerSummary',
+          }
+        },
+      },
     },
   },
 };

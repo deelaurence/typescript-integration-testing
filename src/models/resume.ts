@@ -16,6 +16,13 @@ interface IRawResponsibility extends Document {
 }
 
 
+
+interface IRawCareerSummary extends Document {
+  jobTitle: string;
+  careerSummary: string[]; 
+}
+
+
 interface IResume extends Document {
   timestamps:boolean;
   completed:boolean;
@@ -59,6 +66,18 @@ interface IResume extends Document {
     stillEnrolled: boolean;
   }[];
 
+  skills:string[];
+  
+  rawSkills:string[];
+  
+  rawTools:string[];
+
+  tools:string[];
+
+  careerSummary:string;
+
+  rawCareerSummary:string[]
+
 }
 
 
@@ -66,8 +85,6 @@ interface IResume extends Document {
 
 
 //SCHEMA DEFINITIONS
-
-
 const responsibilitySchema = new Schema<IResponsibility>({
   jobTitle: {
     type: String,
@@ -86,6 +103,17 @@ const RawResponsibilitySchema = new Schema<IRawResponsibility>({
     required: true,
   },
   responsibilities: [{
+    type: String,
+    required: true,
+  }],
+});
+
+const RawCareerSummarySchema = new Schema<IRawCareerSummary>({
+  jobTitle: {
+    type: String,
+    required: true,
+  },
+  careerSummary: [{
     type: String,
     required: true,
   }],
@@ -188,8 +216,27 @@ const resumeSchema = new Schema<IResume>({
       },
       stillEnrolled: {
         type: Boolean,
-      }},],},
-    {
+      }},],
+  tools:{
+    type: [String],
+  },
+  skills:{
+    type: [String],
+  },
+  rawTools:{
+    type: [String],
+  },
+  rawSkills:{
+    type: [String],
+  },
+  careerSummary:{
+    type: String,
+  },
+  rawCareerSummary:{
+    type: [String],
+  },
+  },
+  {
     timestamps: true
 });
 
@@ -207,6 +254,10 @@ export {IResume, Resume};
 const RawResponsibility = model<IRawResponsibility>('RawResponsibility', RawResponsibilitySchema);
 
 export { IRawResponsibility, RawResponsibility };
+
+const RawCareerSummary = model<IRawCareerSummary>('RawCareerSummary', RawCareerSummarySchema);
+
+export { IRawCareerSummary, RawCareerSummary };
 
 
 const Responsibility = model<IResponsibility>('Responsibility', responsibilitySchema);

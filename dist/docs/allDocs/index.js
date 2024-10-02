@@ -243,6 +243,124 @@ exports.default = {
                 },
             },
         },
+        '/resume/get/core/tools ': {
+            post: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
+                tags: ['Data collection'],
+                description: 'Core tools',
+                operationId: 'core tools recommendation',
+                requestBody: {
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/ResumeIdOnly',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    201: {
+                        description: 'Resume tools recommendations',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
+        // @ts-ignore
+        '/resume/core/tools': {
+            post: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
+                tags: ['Data collection'],
+                description: 'Core tools addition',
+                operationId: 'core tools addition',
+                requestBody: {
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/SkillsAndToolsSection',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    201: {
+                        description: 'Resume tools addition',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
+        '/resume/get/core/skills': {
+            post: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
+                tags: ['Data collection'],
+                description: 'Core skills',
+                operationId: 'core skills recommendation',
+                requestBody: {
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/ResumeIdOnly',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    201: {
+                        description: 'Resume skills recommendations',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
+        // @ts-ignore
+        '/resume/core/skills': {
+            post: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
+                tags: ['Data collection'],
+                description: 'Core skills',
+                operationId: 'core skills recommendation',
+                requestBody: {
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/SkillsAndToolsSection',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    201: {
+                        description: 'Resume skills update',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
         '/auth/google/onboard': {
             get: {
                 tags: ['Google'],

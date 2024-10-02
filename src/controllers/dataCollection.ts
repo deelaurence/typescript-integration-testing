@@ -7,8 +7,8 @@ import {BaseUser, IUser} from '../models/user';
 import { IRawResponsibility, RawResponsibility, Responsibility,IResponsibility } from '../models/resume';
 import { recommendResponsibilities } from '../utils/prompt'
 import { liberalPrompt } from '../utils/prompt';
-
-
+import Store from '../store/store';
+const store = new Store()
 
 //Create new resume and return the ID
 const initializeResume = async(req:Request, res:Response): Promise<void>=>{
@@ -325,6 +325,150 @@ const educationSection = async (req: Request, res: Response): Promise<void> => {
 };
 
 
+//prompt skills and tools
+const PromtskillsAndTools = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const state = req.params.state;
+    const {resumeId} = req.body
+    if(!resumeId) throw new BadRequest('Supply resumeId')
+    console.log(state)
+    if(state!=='tools'&&state!=='skills') throw new NotFound('Route not found')
+    const resume = await Resume.findById(resumeId)
+    if(!resume){
+        throw new NotFound("Resume does not exist")
+    }
+    
+    const result = await store.recommendToolsAndSkills(
+      resume.profession,state  
+    )
+    
+    state=="skills"?
+    resume.rawSkills = result:
+    resume.rawTools = result;
+    
+    await resume.save()
+    res.json(successResponse(resume,200,`${state} recommended`))
+    
+  } catch (error:any) {
+    // Handle errors
+    console.error(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json(new InternalServerError(error.message));
+  }
+};
+
+
+//Add skills and tools
+const skillsAndToolsSection = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      resumeId,
+      payload
+    } = req.body;
+
+    const state = req.params.state;
+    console.log(state)
+    
+    const resume = await Resume.findById(resumeId)
+    if(!resume){
+        throw new NotFound("Resume does not exist")
+    }
+    
+     
+    if (state=='tools') {
+      resume.tools=payload
+    } else {
+      resume.skills=payload
+    }
+    
+    await resume.save()
+
+    // Respond with the saved resume
+    res.status(201).json(successResponse(
+        resume,
+        StatusCodes.CREATED,
+        `You added ${state}`
+      ));
+  } catch (error:any) {
+    // Handle errors
+    console.error(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json(new InternalServerError(error.message));
+  }
+};
+
+
+
+//prompt career summary
+const promptCareerSummary = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {resumeId} = req.body
+    if(!resumeId) throw new BadRequest('Supply resumeId')
+        const resume = await Resume.findById(resumeId)
+    if(!resume){
+        throw new NotFound("Resume does not exist")
+    }
+    
+    let yearsOfExperience;
+    let allJobsDate=resume.jobExperiences.map((experience)=>{
+      return experience.startDate
+    })
+    const currentYear = new Date().getFullYear()
+    const minYear = Math.min(...allJobsDate.map(date => new Date(date).getFullYear()));
+    yearsOfExperience = currentYear - minYear;
+
+    const result = await store.recommendCareerSummary(
+      resume.profession,`[${resume.skills}]`,`[${resume.tools}]`,yearsOfExperience
+    )
+    
+    
+    
+    
+    resume.rawCareerSummary = result;
+    
+    await resume.save()
+    res.json(successResponse(resume,200,`Career summary recommendations`))
+    
+  } catch (error:any) {
+    // Handle errors
+    console.error(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json(new InternalServerError(error.message));
+  }
+};
+
+
+//Add skills and tools
+const careerSummarySection = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      resumeId,
+      careerSummary
+    } = req.body;
+    
+    const resume = await Resume.findById(resumeId)
+    if(!resume){
+        throw new NotFound("Resume does not exist")
+    }
+    
+  
+    resume.careerSummary = careerSummary
+    await resume.save()
+
+    // Respond with the saved resume
+    res.status(201).json(successResponse(
+        resume,
+        StatusCodes.CREATED,
+        `You added your career summary`
+      ));
+  } catch (error:any) {
+    // Handle errors
+    console.error(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json(new InternalServerError(error.message));
+  }
+};
+
 
 const liberalPrompting = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -350,4 +494,4 @@ const liberalPrompting = async (req: Request, res: Response): Promise<void> => {
 };
 
 
-export { liberalPrompting, experienceSection, headerSection, responsibilitiesSection, educationSection, initializeResume };
+export { liberalPrompting, experienceSection, headerSection, responsibilitiesSection, educationSection, initializeResume, PromtskillsAndTools, skillsAndToolsSection,promptCareerSummary, careerSummarySection};

@@ -8,8 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initializeResume = exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = exports.liberalPrompting = void 0;
+exports.careerSummarySection = exports.promptCareerSummary = exports.skillsAndToolsSection = exports.PromtskillsAndTools = exports.initializeResume = exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = exports.liberalPrompting = void 0;
 const resume_1 = require("../models/resume");
 const http_status_codes_1 = require("http-status-codes");
 const customResponse_1 = require("../utils/customResponse");
@@ -18,6 +21,8 @@ const user_1 = require("../models/user");
 const resume_2 = require("../models/resume");
 const prompt_1 = require("../utils/prompt");
 const prompt_2 = require("../utils/prompt");
+const store_1 = __importDefault(require("../store/store"));
+const store = new store_1.default();
 //Create new resume and return the ID
 const initializeResume = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -224,6 +229,114 @@ const educationSection = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.educationSection = educationSection;
+//prompt skills and tools
+const PromtskillsAndTools = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const state = req.params.state;
+        const { resumeId } = req.body;
+        if (!resumeId)
+            throw new customErrors_1.BadRequest('Supply resumeId');
+        console.log(state);
+        if (state !== 'tools' && state !== 'skills')
+            throw new customErrors_1.NotFound('Route not found');
+        const resume = yield resume_1.Resume.findById(resumeId);
+        if (!resume) {
+            throw new customErrors_1.NotFound("Resume does not exist");
+        }
+        const result = yield store.recommendToolsAndSkills(resume.profession, state);
+        state == "skills" ?
+            resume.rawSkills = result :
+            resume.rawTools = result;
+        yield resume.save();
+        res.json((0, customResponse_1.successResponse)(resume, 200, `${state} recommended`));
+    }
+    catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(new customErrors_1.InternalServerError(error.message));
+    }
+});
+exports.PromtskillsAndTools = PromtskillsAndTools;
+//Add skills and tools
+const skillsAndToolsSection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { resumeId, payload } = req.body;
+        const state = req.params.state;
+        console.log(state);
+        const resume = yield resume_1.Resume.findById(resumeId);
+        if (!resume) {
+            throw new customErrors_1.NotFound("Resume does not exist");
+        }
+        if (state == 'tools') {
+            resume.tools = payload;
+        }
+        else {
+            resume.skills = payload;
+        }
+        yield resume.save();
+        // Respond with the saved resume
+        res.status(201).json((0, customResponse_1.successResponse)(resume, http_status_codes_1.StatusCodes.CREATED, `You added ${state}`));
+    }
+    catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(new customErrors_1.InternalServerError(error.message));
+    }
+});
+exports.skillsAndToolsSection = skillsAndToolsSection;
+//prompt career summary
+const promptCareerSummary = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { resumeId } = req.body;
+        if (!resumeId)
+            throw new customErrors_1.BadRequest('Supply resumeId');
+        const resume = yield resume_1.Resume.findById(resumeId);
+        if (!resume) {
+            throw new customErrors_1.NotFound("Resume does not exist");
+        }
+        let yearsOfExperience;
+        let allJobsDate = resume.jobExperiences.map((experience) => {
+            return experience.startDate;
+        });
+        const currentYear = new Date().getFullYear();
+        const minYear = Math.min(...allJobsDate.map(date => new Date(date).getFullYear()));
+        yearsOfExperience = currentYear - minYear;
+        const result = yield store.recommendCareerSummary(resume.profession, `[${resume.skills}]`, `[${resume.tools}]`, yearsOfExperience);
+        resume.rawCareerSummary = result;
+        yield resume.save();
+        res.json((0, customResponse_1.successResponse)(resume, 200, `Career summary recommendations`));
+    }
+    catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(new customErrors_1.InternalServerError(error.message));
+    }
+});
+exports.promptCareerSummary = promptCareerSummary;
+//Add skills and tools
+const careerSummarySection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { resumeId, careerSummary } = req.body;
+        const resume = yield resume_1.Resume.findById(resumeId);
+        if (!resume) {
+            throw new customErrors_1.NotFound("Resume does not exist");
+        }
+        resume.careerSummary = careerSummary;
+        yield resume.save();
+        // Respond with the saved resume
+        res.status(201).json((0, customResponse_1.successResponse)(resume, http_status_codes_1.StatusCodes.CREATED, `You added your career summary`));
+    }
+    catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(new customErrors_1.InternalServerError(error.message));
+    }
+});
+exports.careerSummarySection = careerSummarySection;
 const liberalPrompting = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { prompt } = req.body;

@@ -1,4 +1,4 @@
-@session=token goes here
+@session=
 
 POST http://localhost:3000/auth/register
 # POST https://typescript-integration-testing.onrender.com/auth/register
@@ -215,13 +215,55 @@ Content-Type: application/json
 ###
 
 
-
-POST http://localhost:3000/resume/liberal
+POST http://localhost:3000/resume/get/core/tools
 Content-Type: application/json
+Authorization: Bearer {{session}}
 
-{      
-      
-      "prompt":"I Conducted user research studies to gather insights and understand user needs at google give me ten other things i could have done."
+{
+    "resumeId":"66ab4898763d4ec1d8d7b66a"
+}
+
+###
+
+POST http://localhost:3000/resume/core/tools
+Content-Type: application/json
+Authorization: Bearer {{session}}
+
+{   
+    "resumeId":"66ab4898763d4ec1d8d7b66a",
+    "payload":["tooll","security","security","security"]
+}
+###
+
+POST http://localhost:3000/resume/core/tools
+Content-Type: application/json
+Authorization: Bearer {{session}}
+
+{   
+    "resumeId":"66ab4898763d4ec1d8d7b66a",
+    "payload":["tooll","security","security","security"]
+}
+
+###
+
+
+POST http://localhost:3000/resume/get/career-summary
+Content-Type: application/json
+Authorization: Bearer {{session}}
+
+
+{   
+    "resumeId":"66ab4898763d4ec1d8d7b66a"
+}
+
+###
+POST http://localhost:3000/resume/career-summary
+Content-Type: application/json
+Authorization: Bearer {{session}}
+
+{   
+    "resumeId":"66ab4898763d4ec1d8d7b66a",
+    "careerSummary":"Accomplished Backend Developer with 2 years of experience, exceptional security expertise and proficiency in various security tools."
 }
 
 
