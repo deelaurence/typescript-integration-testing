@@ -159,7 +159,7 @@ const sendBrevoMail = (email, name, link) => __awaiter(void 0, void 0, void 0, f
             <!-- Email body -->
             <tr>
               <td id="body">
-                <p>
+                <p> 
                   Hello ${name}, We are excited to have you on board, click on
                   the button below to verify your email
                 </p>

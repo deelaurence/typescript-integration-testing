@@ -19,6 +19,7 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const customErrors_1 = require("./errors/customErrors");
 const express_session_1 = __importDefault(require("express-session"));
 const cors_1 = __importDefault(require("cors"));
+const payment_1 = __importDefault(require("./routes/payment"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
@@ -46,6 +47,7 @@ app.use('/auth', auth_1.default);
 app.use('/prompt', Ai_1.default);
 app.use('/resume', dataCollection_1.default);
 app.use('/profile', userProfile_1.default);
+app.use('/payment', payment_1.default);
 app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(require('./docs')));
 app.set('trust proxy', 1);
 app.use("*", (req, res) => {

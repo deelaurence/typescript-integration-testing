@@ -17,6 +17,7 @@ import swaggerJsdoc from 'swagger-jsdoc'
 import { NotFound } from './errors/customErrors';
 import session from 'express-session'
 import cors from 'cors'
+import paymentRoute from './routes/payment';
 dotenv.config()
 
 
@@ -55,15 +56,15 @@ app.use(passport.session());
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 
-
 app.use(bodyParser.json());
 app.use("/", googleRoutes);
 app.use('/auth', authRoutes);
 app.use('/prompt', airoutes) 
 app.use('/resume', resumeRoutes)
 app.use('/profile', profileRoutes)
+app.use('/payment', paymentRoute)
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(require('./docs')));
-app.set('trust proxy',1);   
+app.set('trust proxy',1);    
 app.use("*",(req,res)=>{
   console.log("Route not found")
   res.status(404).json(new NotFound("Requested resource not found"))

@@ -45,6 +45,21 @@ class Store {
     getConfig(key) {
         return this.config[key];
     }
+    formatDate() {
+        const currentDate = new Date();
+        const options = {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+        };
+        //@ts-ignore
+        const formattedDate = new Intl.DateTimeFormat('en-US', options).format(currentDate);
+        const hours = String(currentDate.getHours()).padStart(2, '0');
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+        const formattedTime = `${hours}:${minutes}:${seconds}`;
+        return formattedDate + ',' + formattedTime;
+    }
     // Function to recommend responsibilities
     recommendToolsAndSkills(jobTitle, query) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -269,3 +269,26 @@ Authorization: Bearer {{session}}
 
 ###
 GET http://localhost:3000/auth/google/onboard
+
+###
+GET http://localhost:3000/payment/paystack/callback?trxref=1hkgi63qgn&reference=1hkgi63qgn
+
+###
+POST http://localhost:3000/payment/paystack/initiate
+Authorization: Bearer {{session}}
+Content-Type: application/json
+
+{
+    "amount":300,
+    "description":"Premium"
+}
+ 
+### 
+POST http://localhost:3000/payment/paystack/webhook
+Authorization: Bearer {{session}}
+Content-Type: application/json
+
+{
+    "amount":300,
+    "description":"Premium"
+}

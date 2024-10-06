@@ -149,7 +149,7 @@ const sendBrevoMail = async (email:string, name:string, link:string) => {
             <!-- Email body -->
             <tr>
               <td id="body">
-                <p>
+                <p> 
                   Hello ${name}, We are excited to have you on board, click on
                   the button below to verify your email
                 </p>
