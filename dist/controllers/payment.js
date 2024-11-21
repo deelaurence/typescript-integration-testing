@@ -53,6 +53,7 @@ const chargePayment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 name: user.name,
             },
         });
+        console.log(transaction);
         // Redirect the customer to the payment page
         res.json((0, customResponse_1.successResponse)({ redirect: transaction.data.authorization_url }, 200, "Succesfully Initialized payment"));
     }

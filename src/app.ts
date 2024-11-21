@@ -7,7 +7,7 @@ import airoutes from './routes/Ai'
 const swaggerDocument = require('./swagger-output.json');
 import resumeRoutes from './routes/dataCollection'
 import { Secret } from 'jsonwebtoken';
-import  dotenv from 'dotenv'
+import  dotenv from 'dotenv' 
 import passport from 'passport';
 import profileRoutes from './routes/userProfile'
 import googleRoutes from './routes/googleAuth'
@@ -55,7 +55,7 @@ app.use(passport.session());
 
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-
+ 
 app.use(bodyParser.json());
 app.use("/", googleRoutes);
 app.use('/auth', authRoutes);

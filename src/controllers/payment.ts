@@ -49,7 +49,7 @@ export const chargePayment = async (req:Request, res:Response) => {
         name: user.name,
       },
     });
-
+    console.log(transaction)
     // Redirect the customer to the payment page
     res.json(successResponse(
         {redirect:transaction.data.authorization_url},
