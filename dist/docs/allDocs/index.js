@@ -272,6 +272,35 @@ exports.default = {
                 },
             },
         },
+        '/resume/select-template': {
+            put: {
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
+                tags: ['Data collection'],
+                description: 'select template',
+                operationId: 'select template',
+                requestBody: {
+                    content: {
+                        'application/json': {
+                            schema: {
+                                $ref: '#/components/schemas/selectTemplate',
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    201: {
+                        description: 'Resume tools recommendations',
+                    },
+                    500: {
+                        description: 'Server error',
+                    },
+                },
+            },
+        },
         // @ts-ignore
         '/resume/core/tools': {
             post: {

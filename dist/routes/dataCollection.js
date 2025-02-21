@@ -14,6 +14,7 @@ router.post('/experiences', dataCollection_1.experienceSection);
 router.post('/responsibilities', dataCollection_1.responsibilitiesSection);
 router.post('/education', dataCollection_1.educationSection);
 router.post('/core/:state', dataCollection_1.skillsAndToolsSection);
+router.put('/select-template', dataCollection_1.selectTemplate);
 router.post('/get/core/:state', dataCollection_1.PromtskillsAndTools);
 router.post('/get/career-summary', dataCollection_1.promptCareerSummary);
 router.post('/career-summary', dataCollection_1.careerSummarySection);

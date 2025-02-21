@@ -33,6 +33,7 @@ interface IResume extends Document {
   phoneNumber:string;
   profession:string;
   firstName:string;
+  templateType:string;
   lastName:string;
   publicEmail?: {
     type: string;
@@ -128,6 +129,10 @@ const resumeSchema = new Schema<IResume>({
   },
   profession: {
     type: String,
+  },
+  templateType:{
+    type:String,
+    default:'1'
   },
   createdBy:{
     type: mongoose.Schema.Types.ObjectId,

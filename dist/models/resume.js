@@ -64,6 +64,10 @@ const resumeSchema = new mongoose_1.Schema({
     profession: {
         type: String,
     },
+    templateType: {
+        type: String,
+        default: '1'
+    },
     createdBy: {
         type: mongoose_1.default.Schema.Types.ObjectId,
     },

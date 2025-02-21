@@ -1,4 +1,4 @@
-@session=
+@session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTc0MDExNDAyMCwiZXhwIjoxNzQwMjAwNDIwfQ.IQiKhd_AVnsBsd2rcYiBQyeiIlD-dq5oyas-8h7N0_c
 
 POST http://localhost:3000/auth/register
 # POST https://typescript-integration-testing.onrender.com/auth/register
@@ -144,10 +144,17 @@ Content-Type: application/json
 
 ###
 
+PUT http://localhost:3000/resume/select-template
+Content-Type: application/json
+Authorization: Bearer {{session}}
+
+{
+    "resumeId":"66ab4898763d4ec1d8d7b66a",
+    "templateType":"2"
+}
 
 
-
-
+###
 
 #step 3, add responsibilities to job experiences
 #resumeId, jobExperienceId, responsibilitiesArray

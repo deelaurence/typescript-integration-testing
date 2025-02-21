@@ -188,6 +188,11 @@ exports.default = {
             description: 'Career Summary',
             example: "Accomplished Backend Developer with 2 years of experience, exceptional security expertise and proficiency in various security tools."
         },
+        templateType: {
+            type: 'string',
+            description: "selected template design for the resume like '1', '2'....",
+            example: "2"
+        },
         schoolName: {
             type: 'string',
             description: 'Name of the school',
@@ -373,6 +378,17 @@ exports.default = {
                 properties: {
                     resumeId: {
                         $ref: '#/components/resumeId',
+                    }
+                },
+            },
+            selectTemplate: {
+                type: 'object',
+                properties: {
+                    resumeId: {
+                        $ref: '#/components/resumeId',
+                    },
+                    templateType: {
+                        $ref: '#/components/templateType',
                     }
                 },
             },
