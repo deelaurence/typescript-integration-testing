@@ -10,7 +10,8 @@ import {
     PromtskillsAndTools,
     promptCareerSummary,
     careerSummarySection,
-    selectTemplate
+    selectTemplate,
+    setCompletedState
  } from '../controllers/dataCollection';
 import auth from '../middleware/authentication';
 
@@ -25,6 +26,7 @@ router.post('/responsibilities', responsibilitiesSection);
 router.post('/education', educationSection);
 router.post('/core/:state', skillsAndToolsSection);
 router.put('/select-template',selectTemplate)
+router.put('/set-completed',setCompletedState)
 router.post('/get/core/:state', PromtskillsAndTools);
 router.post('/get/career-summary', promptCareerSummary);
 router.post('/career-summary', careerSummarySection);

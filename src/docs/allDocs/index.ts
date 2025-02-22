@@ -316,6 +316,36 @@ export default {
         },
       },
     },
+    '/resume/set-completed': {
+      put: {
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        tags: ['Data collection'],
+        description: 'set completed',
+        operationId: 'set completed',
+
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/isCompleted',
+              },
+            },
+          },
+        },
+        responses: {
+          201: {
+            description: 'is completed state set',
+          },
+          500: {
+            description: 'Server error',
+          },
+        },
+      },
+    },
     // @ts-ignore
     '/resume/core/tools': {
       post: {

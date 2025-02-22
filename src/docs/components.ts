@@ -142,6 +142,11 @@ export default {
       description:'The resume _id to be edited',
       example:"66489cd996c6126d3a5affb6"
     },
+    isCompleted:{
+      type:'boolean',
+      description:'Settting the is completed state of the resume',
+      example:true
+    },
     jobExperienceId:{
       type:'string',
       description:'The jobExperience _id to be updated',
@@ -229,9 +234,7 @@ export default {
         accountName:"John Doe",
         bankName:"Heritage Bank",
       }
-    }
-    
-    ,
+    },
 
     schemas: {
       Login: {
@@ -403,6 +406,17 @@ export default {
           },
           templateType: {
             $ref: '#/components/templateType',
+          }
+        },
+      },
+      isCompleted: {
+        type: 'object',
+        properties: {
+          resumeId: {
+            $ref: '#/components/resumeId',
+          },
+          completed: {
+            $ref: '#/components/isCompleted',
           }
         },
       },

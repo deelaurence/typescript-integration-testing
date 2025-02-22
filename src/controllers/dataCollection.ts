@@ -475,8 +475,6 @@ const liberalPrompting = async (req: Request, res: Response): Promise<void> => {
     const {
       prompt
     } = req.body;
-
-    
     const result = await liberalPrompt(prompt)
 
     // Respond with the saved resume
@@ -517,6 +515,27 @@ const selectTemplate = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+const setCompletedState = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      completed,resumeId
+    } = req.body;    
+    const updatedResume = await Resume.findByIdAndUpdate(resumeId,{completed},{new:true})
+    if(!updatedResume) throw new NotFound("Resume does not exist")
+    // Respond with the saved resume
+    res.status(201).json(successResponse(
+        updatedResume,
+        StatusCodes.CREATED,
+        `Template updated`
+      ));
+  } catch (error:any) {
+    // Handle errors
+    console.error(error)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json(new InternalServerError(error.message));
+  }
+};
+
 
 export { 
   liberalPrompting, 
@@ -529,5 +548,6 @@ export {
   PromtskillsAndTools, 
   skillsAndToolsSection,
   promptCareerSummary, 
-  careerSummarySection
+  careerSummarySection,
+  setCompletedState
 };

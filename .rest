@@ -1,5 +1,4 @@
-@session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTc0MDExNDAyMCwiZXhwIjoxNzQwMjAwNDIwfQ.IQiKhd_AVnsBsd2rcYiBQyeiIlD-dq5oyas-8h7N0_c
-
+@session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTc0MDIxMDc4MywiZXhwIjoxNzQwMjk3MTgzfQ.2kNtIROxyy7XHT31i-lO-x4Ilb8EKN-0d0I4SY-LCrM
 POST http://localhost:3000/auth/register
 # POST https://typescript-integration-testing.onrender.com/auth/register
 Content-Type: application/json
@@ -151,6 +150,17 @@ Authorization: Bearer {{session}}
 {
     "resumeId":"66ab4898763d4ec1d8d7b66a",
     "templateType":"2"
+}
+
+
+###
+PUT http://localhost:3000/resume/set-completed
+Content-Type: application/json
+Authorization: Bearer {{session}}
+
+{
+    "resumeId":"66ab4898763d4ec1d8d7b66a",
+    "completed":true
 }
 
 

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.careerSummarySection = exports.promptCareerSummary = exports.skillsAndToolsSection = exports.PromtskillsAndTools = exports.initializeResume = exports.selectTemplate = exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = exports.liberalPrompting = void 0;
+exports.setCompletedState = exports.careerSummarySection = exports.promptCareerSummary = exports.skillsAndToolsSection = exports.PromtskillsAndTools = exports.initializeResume = exports.selectTemplate = exports.educationSection = exports.responsibilitiesSection = exports.headerSection = exports.experienceSection = exports.liberalPrompting = void 0;
 const resume_1 = require("../models/resume");
 const http_status_codes_1 = require("http-status-codes");
 const customResponse_1 = require("../utils/customResponse");
@@ -369,3 +369,20 @@ const selectTemplate = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.selectTemplate = selectTemplate;
+const setCompletedState = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { completed, resumeId } = req.body;
+        const updatedResume = yield resume_1.Resume.findByIdAndUpdate(resumeId, { completed }, { new: true });
+        if (!updatedResume)
+            throw new customErrors_1.NotFound("Resume does not exist");
+        // Respond with the saved resume
+        res.status(201).json((0, customResponse_1.successResponse)(updatedResume, http_status_codes_1.StatusCodes.CREATED, `Template updated`));
+    }
+    catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(new customErrors_1.InternalServerError(error.message));
+    }
+});
+exports.setCompletedState = setCompletedState;
