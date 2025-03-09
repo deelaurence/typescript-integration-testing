@@ -1,4 +1,4 @@
-@session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTc0MDIxMDc4MywiZXhwIjoxNzQwMjk3MTgzfQ.2kNtIROxyy7XHT31i-lO-x4Ilb8EKN-0d0I4SY-LCrM
+@session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTFhMTE5ZGU3NDNkMWVlNDU2MzIzNSIsIm5hbWUiOiJBbG8gT2R1bmF5byIsImlhdCI6MTc0MTQ2MzQyNiwiZXhwIjoxNzQxNTQ5ODI2fQ.66ibaNQ0Wk5wV-bAwdiDe5oVt_FzjgCncsQrzexCceo
 POST http://localhost:3000/auth/register
 # POST https://typescript-integration-testing.onrender.com/auth/register
 Content-Type: application/json
@@ -35,8 +35,9 @@ Content-Type: application/json
 ###
 
 
-POST http://localhost:3000/prompt/generate
+POST http://localhost:3000/resume/liberal
 Content-Type: application/json
+Authorization: Bearer {{session}}
 
 {
     "prompt":"I am writing a resume send me 10 responsibities of a pastor and use the first person speaking in a javascript array without linebreaks"
@@ -129,10 +130,12 @@ Content-Type: application/json
 
 POST http://localhost:3000/resume/experiences
 Content-Type: application/json
+Authorization: Bearer {{session}}
+
 
 {
       "jobTitle": "Dev Ops Engineer",
-      "resumeId":"66463ff1a56a75afd711dcd4",
+      "resumeId":"66ab4898763d4ec1d8d7b66a",
       "company": "Sky Studio",
       "country": "Nigeria",
       "city": "Akure",
@@ -173,6 +176,8 @@ Authorization: Bearer {{session}}
 
 POST http://localhost:3000/resume/responsibilities
 Content-Type: application/json
+Authorization: Bearer {{session}}
+
 
 {      
       "resumeId":"66ab4898763d4ec1d8d7b66a",
@@ -232,7 +237,7 @@ Content-Type: application/json
 ###
 
 
-POST http://localhost:3000/resume/get/core/tools
+POST http://localhost:3000/resume/get/core/skills
 Content-Type: application/json
 Authorization: Bearer {{session}}
 

@@ -13,7 +13,7 @@ const sendBrevoMail = async (email:string, name:string, link:string) => {
     to: [
       {
         email,
-        name,
+        name, 
       },
     ],
     subject: "Verify Your Account",

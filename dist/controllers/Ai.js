@@ -18,8 +18,8 @@ const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GEMINI_KEY);
 // Access your API key as an environment variable (see "Set up your API key" above)
 function generate(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        // For text-only input, use the gemini-pro model
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        // For text-only input, use the gemini-1.5-pro-002 model
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-002" });
         const prompt = req.body.prompt;
         const result = yield model.generateContent(prompt);
         const response = result.response;

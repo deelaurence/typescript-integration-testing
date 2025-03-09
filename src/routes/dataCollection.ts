@@ -17,7 +17,7 @@ import auth from '../middleware/authentication';
 
 const router = express.Router();
 router.use(auth)
- 
+
 
 router.post('/initialize', initializeResume);
 router.post('/header', headerSection);

@@ -476,7 +476,6 @@ const liberalPrompting = async (req: Request, res: Response): Promise<void> => {
       prompt
     } = req.body;
     const result = await liberalPrompt(prompt)
-
     // Respond with the saved resume
     res.status(201).json(successResponse(
         result,

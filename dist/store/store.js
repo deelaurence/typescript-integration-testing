@@ -16,6 +16,13 @@ class Store {
     constructor() {
         this.dataStore = {};
         this.config = {};
+        this.extraInstructions = `
+        Do not include explanations, categories, or additional text.
+        Format the output as a single array of strings seperated by commas,
+        no other symbol other than commas, quotes, square brackets
+        no line breaks I want to be able to call JSON.parse() on it and
+        send it to the frontend as a standard array of string
+    `;
         this.geminiKey = process.env.GEMINI_KEY || "";
         if (!this.geminiKey)
             throw new Error("Gemini Key does not exist");
@@ -60,48 +67,46 @@ class Store {
         const formattedTime = `${hours}:${minutes}:${seconds}`;
         return formattedDate + ',' + formattedTime;
     }
-    // Function to recommend responsibilities
-    recommendToolsAndSkills(jobTitle, query) {
+    centralPrompt(jobTitle, number, category) {
+        return `List exactly ${number} ${category} I used as a ${jobTitle}. 
+        Use first person pronouns when applicable but dont start everything with I,
+        Can start with a past tense verb
+        ${this.extraInstructions}
+        `;
+    }
+    promptEngine(prompt) {
         return __awaiter(this, void 0, void 0, function* () {
-            // For text-only input, use the gemini-pro model
-            const model = this.genAI.getGenerativeModel({ model: "gemini-pro" });
-            const prompt = query == 'tools' ? `
-        I am generating a resume, I worked
-        as a ${jobTitle}, generate thirty(30) ${query} 
-        I would have used to fit in my one page resume.
-        ` :
-                `I worked 
-        as a ${jobTitle}, generate thirty(30) ${query} 
-        I would have used.`;
+            const model = this.genAI.getGenerativeModel({ model: "gemini-1.5-pro-002" });
             const result = yield model.generateContent(prompt);
             const response = result.response;
             const text = response.text();
-            const actionsArray = text.split('\n');
             console.log(prompt);
-            const cleanedActions = this.cleanActions(actionsArray);
-            return cleanedActions;
+            return JSON.parse(text);
+        });
+    }
+    // Function to recommend responsibilities
+    recommendToolsAndSkills(jobTitle, query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const prompt = query === 'tools' ?
+                this.centralPrompt(jobTitle, 30, "tools")
+                :
+                    this.centralPrompt(jobTitle, 30, "skills");
+            return yield this.promptEngine(prompt);
         });
     }
     // Function to recommend responsibilities
     recommendCareerSummary(jobTitle, skills, tools, yearsOfExperience) {
         return __awaiter(this, void 0, void 0, function* () {
-            // For text-only input, use the gemini-pro model
-            const model = this.genAI.getGenerativeModel({ model: "gemini-pro" });
-            const prompt = `
+            // For text-only input, use the gemini-1.5-pro-002 model
+            let prompt = `
         I am generating a resume, I worked
-        as a ${jobTitle} using these skills ${skills},
-        and these tools ${tools}.
+        as a ${jobTitle} 
         I have ${yearsOfExperience} years of experience.
         Generate five(5)
         possible  career summaries I can use 
+        ${this.extraInstructions}
         `;
-            const result = yield model.generateContent(prompt);
-            const response = result.response;
-            const text = response.text();
-            const actionsArray = text.split('\n');
-            console.log(prompt);
-            const cleanedActions = this.cleanActions(actionsArray);
-            return cleanedActions;
+            return yield this.promptEngine(prompt);
         });
     }
     // Method to clean actions: remove numbering and asterisks
@@ -109,6 +114,15 @@ class Store {
         let actionsWithoutNumbering = actionsArray.map(action => this.removeNumbering(action));
         actionsWithoutNumbering = actionsWithoutNumbering.map(action => this.removeAsterisks(action));
         return actionsWithoutNumbering;
+    }
+    cleanActionsV2(text) {
+        const actionsArray = text
+            .split('\n')
+            .map(line => line.trim()) // Remove extra spaces
+            .filter(line => line && !line.includes(':')); // Remove empty lines & category headers
+        // If the model returns numbers (1. ToolName), remove them
+        const cleanedActions = actionsArray.map(line => line.replace(/^\d+\.\s*/, ''));
+        return cleanedActions;
     }
     // Method to remove numbering from a string
     removeNumbering(action) {

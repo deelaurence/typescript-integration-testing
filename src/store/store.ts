@@ -65,32 +65,46 @@ class Store {
         return formattedDate + ',' + formattedTime    
     }
 
+
+    extraInstructions=`
+        Do not include explanations, categories, or additional text.
+        Format the output as a single array of strings seperated by commas,
+        no other symbol other than commas, quotes, square brackets
+        no line breaks I want to be able to call JSON.parse() on it and
+        send it to the frontend as a standard array of string
+    `
+
+    public centralPrompt (jobTitle:string, number:number, category:string){
+        
+        return `List exactly ${number} ${category} I used as a ${jobTitle}. 
+        Use first person pronouns when applicable but dont start everything with I,
+        Can start with a past tense verb
+        ${this.extraInstructions}
+        `
+    }
+
+
+    public async promptEngine(prompt:string){  
+        const model = this.genAI.getGenerativeModel({ model: "gemini-1.5-pro-002" });
+   
+        const result = await model.generateContent(prompt);
+        const response = result.response;
+        const text = response.text();
+        console.log(prompt);
+        return JSON.parse(text)
+    }
+
     // Function to recommend responsibilities
     public async recommendToolsAndSkills(
         jobTitle: string,
         query:string
     ): Promise<string[]> {
-        // For text-only input, use the gemini-pro model
-        const model = this.genAI.getGenerativeModel({ model: "gemini-pro" });
+        const prompt: string = query === 'tools' ?
+            this.centralPrompt(jobTitle,30,"tools")
+            :   
+            this.centralPrompt(jobTitle,30,"skills");
 
-        const prompt: string = query=='tools' ?`
-        I am generating a resume, I worked
-        as a ${jobTitle}, generate thirty(30) ${query} 
-        I would have used to fit in my one page resume.
-        `:
-        `I worked 
-        as a ${jobTitle}, generate thirty(30) ${query} 
-        I would have used.`;
-
-        const result = await model.generateContent(prompt);
-        const response = result.response;
-        
-        const text = response.text();
-        const actionsArray = text.split('\n'); 
-
-        console.log(prompt);
-        const cleanedActions = this.cleanActions(actionsArray);
-        return cleanedActions;
+        return await this.promptEngine(prompt)
     }
 
      // Function to recommend responsibilities
@@ -100,26 +114,18 @@ class Store {
         tools: string,
         yearsOfExperience: number
     ): Promise<string[]> {
-        // For text-only input, use the gemini-pro model
-        const model = this.genAI.getGenerativeModel({ model: "gemini-pro" });
+        // For text-only input, use the gemini-1.5-pro-002 model
 
-        const prompt: string = `
+        let prompt: string = `
         I am generating a resume, I worked
-        as a ${jobTitle} using these skills ${skills},
-        and these tools ${tools}.
+        as a ${jobTitle} 
         I have ${yearsOfExperience} years of experience.
         Generate five(5)
         possible  career summaries I can use 
+        ${this.extraInstructions}
         `
-        const result = await model.generateContent(prompt);
-        const response = result.response;
-        
-        const text = response.text();
-        const actionsArray = text.split('\n'); 
+        return await this.promptEngine(prompt)
 
-        console.log(prompt);
-        const cleanedActions = this.cleanActions(actionsArray);
-        return cleanedActions;
     }
 
 
@@ -129,6 +135,19 @@ class Store {
         actionsWithoutNumbering = actionsWithoutNumbering.map(action => this.removeAsterisks(action));
         return actionsWithoutNumbering;
     }
+
+
+    private cleanActionsV2(text:string){
+        const actionsArray = text
+            .split('\n')
+            .map(line => line.trim()) // Remove extra spaces
+            .filter(line => line && !line.includes(':')) // Remove empty lines & category headers
+
+        // If the model returns numbers (1. ToolName), remove them
+        const cleanedActions = actionsArray.map(line => line.replace(/^\d+\.\s*/, ''));
+        return cleanedActions
+    }
+
 
     // Method to remove numbering from a string
     private removeNumbering(action: string): string {
